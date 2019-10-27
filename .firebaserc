@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "profile-image-creator": {
+      "hosting": {
+        "profile-image-creator": [
+          "profile-image-creator"
+        ]
+      }
+    }
+  }
+}

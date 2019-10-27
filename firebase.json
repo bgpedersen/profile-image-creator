@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "profile-image-creator",
+      "public": "dist/profile-image-creator",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

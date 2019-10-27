@@ -122,8 +122,13 @@
               "devServerTarget": "profile-image-creator:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "profile-image-creator"
 }
