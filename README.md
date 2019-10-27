@@ -1,5 +1,8 @@
 # ProfileImageCreator
 
+Followed angularfire deploy guide for firebase hosting [guide](https://github.com/angular/angularfire/blob/HEAD/docs/deploy/getting-started.md)
+Using [AngularFire](https://github.com/angular/angularfire)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.14.
 
 ## Development server
