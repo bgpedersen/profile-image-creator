@@ -8,16 +8,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LandingModule } from './landing/landing.module';
+import { PagenotfoundComponent } from './shared/components/pagenotfound/pagenotfound.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PagenotfoundComponent],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    LandingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

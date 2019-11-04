@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
+import { PagenotfoundComponent } from './shared/components/pagenotfound/pagenotfound.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', redirectTo: '/landing/landing', pathMatch: 'full' },
+  { path: '**', component: PagenotfoundComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
