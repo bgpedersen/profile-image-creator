@@ -6,14 +6,16 @@ Furthermore, this project's purpose is also to add to my skills in Angular. TODO
 
 - [x] Best practice architecture
 - [x] Lazy loaded features modules
-- [ ] Image editing (Upload image, crop to circle, download)
-- [ ] Authentication
-- [ ] Guards
+- [x] Use correct HTML sematic
+- [ ] Use scss variables, import etc.
 - [ ] CSS Grid + Responsive
+- [ ] Image editing (Upload image, crop to circle, download)
 - [ ] Angular Material or other useful UI Framework
 - [ ] Add Testing (unit test and possibly e2e test)
-- [ ] Save images to firestore for logged in user
 - [ ] PWA (offline support)
+- [ ] Authentication
+- [ ] Guards
+- [ ] Save images to firestore for logged in user
 - [ ] Setup CI, so when to push/merge to GitHub Master branch -> automatically deploy to firebase
 
 ## Tools

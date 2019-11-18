@@ -1,0 +1,52 @@
+@import "~src/colors";
+
+.container {
+  // height: 100vh;
+  background-color: black;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-areas:
+    "header"
+    "main"
+    "sub"
+    "edit"
+    "footer";
+}
+
+.header {
+  background-color: rgb(69, 69, 226);
+  grid-area: header;
+}
+
+.main {
+  background-color: rgb(60, 60, 179);
+  grid-area: main;
+}
+
+.sub {
+  background-color: rgb(16, 16, 83);
+  grid-area: sub;
+}
+
+.edit {
+  background-color: rgb(38, 38, 87);
+  grid-area: edit;
+}
+
+footer {
+  background-color: rgb(4, 4, 65);
+  grid-area: footer;
+}
+
+@media (min-width: 768px) {
+  .container {
+    grid-template-columns: 20% auto 20%;
+    grid-template-rows: 50px 50px 50px 1fr 50px;
+    grid-template-areas:
+      "header header header"
+      ". main ."
+      ". sub ."
+      ". edit ."
+      "footer footer footer";
+  }
+}

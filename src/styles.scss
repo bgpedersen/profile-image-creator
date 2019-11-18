@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~src/colors";
+
+html,
+body {
+  // height: 100%;
+}
+
+html,
+body,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  color: $color4;
+  background-color: $color5;
+}

@@ -1,15 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { ImageEditorRoutingModule } from './image-editor-routing.module';
-import { EditComponent } from './pages/edit/edit.component';
-
+import { ImageEditorEditComponent } from './pages/image-editor-edit/image-editor-edit.component';
 
 @NgModule({
-  declarations: [EditComponent],
-  imports: [
-    CommonModule,
-    ImageEditorRoutingModule
-  ]
+  declarations: [ImageEditorEditComponent],
+  imports: [CommonModule, SharedModule, ImageEditorRoutingModule]
 })
-export class ImageEditorModule { }
+export class ImageEditorModule {}

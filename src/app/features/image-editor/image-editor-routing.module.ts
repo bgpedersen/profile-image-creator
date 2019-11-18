@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { EditComponent } from './pages/edit/edit.component';
+import { ImageEditorEditComponent } from './pages/image-editor-edit/image-editor-edit.component';
 
 const routes: Routes = [
-  { path: 'edit', component: EditComponent },
-  { path: '', redirectTo: 'edit', pathMatch: 'full' }
+  { path: "image-edit-editor", component: ImageEditorEditComponent },
+  { path: "", redirectTo: "image-edit-editor", pathMatch: "full" }
 ];
 
 @NgModule({
