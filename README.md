@@ -7,8 +7,8 @@ Furthermore, this project's purpose is also to add to my skills in Angular. TODO
 - [x] Best practice architecture
 - [x] Lazy loaded features modules
 - [x] Use correct HTML sematic
-- [ ] Use scss variables, import etc.
-- [ ] CSS Grid + Responsive
+- [ ] Use SASS files structure best practice
+- [ ] Use CSS Grid
 - [ ] Image editing (Upload image, crop to circle, download)
 - [ ] Angular Material or other useful UI Framework
 - [ ] Add Testing (unit test and possibly e2e test)
