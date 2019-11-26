@@ -3,7 +3,7 @@
 
 .container {
   height: 100%;
-  background-color: black;
+  background-color: $color1;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 4rem 4rem 3rem 1fr 4rem;
@@ -16,27 +16,32 @@
 }
 
 .header {
-  background-color: rgb(69, 69, 226);
+  background-color: $color2;
+  color: $color4;
   grid-area: header;
 }
 
 .main {
-  background-color: rgb(60, 60, 179);
+  background-color: $color3;
+  color: $color5;
   grid-area: main;
 }
 
 .sub {
-  background-color: rgb(16, 16, 83);
+  background-color: $color3;
+  color: $color5;
   grid-area: sub;
 }
 
 .edit {
-  background-color: rgb(38, 38, 87);
+  background-color: $color3;
+  color: $color5;
   grid-area: edit;
 }
 
 footer {
-  background-color: rgb(4, 4, 65);
+  background-color: $color2;
+  color: $color4;
   grid-area: footer;
 }
 
