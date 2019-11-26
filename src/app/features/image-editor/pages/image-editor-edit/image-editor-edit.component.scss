@@ -1,10 +1,12 @@
 @import "abstracts/variables";
+@import "abstracts/mixins";
 
 .container {
   height: 100%;
   background-color: black;
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: 4rem 4rem 3rem 1fr 4rem;
   grid-template-areas:
     "header"
     "main"
@@ -38,9 +40,9 @@ footer {
   grid-area: footer;
 }
 
-@media (min-width: 768px) {
+@include for-size(tablet-landscape-up) {
   .container {
-    grid-template-columns: 10rem 1fr 10rem;
+    grid-template-columns: auto minmax(auto, 1200px) auto;
     grid-template-rows: 4rem 4rem 3rem 1fr 4rem;
     grid-template-areas:
       "header header header"
