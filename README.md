@@ -1,4 +1,4 @@
-# ProfileImageCreator
+# ProfileImageCreator (WORK IN PROGRESS!)
 
 The idea for this project came because I often had the need to make a profile image into a circle, instead of a square. But if you don't use Photoshop, or unoptimized results etc. it is not to easy do this effect. So I decided to make a web app that inputs an image and outputs an optimized circle image - easily.
 

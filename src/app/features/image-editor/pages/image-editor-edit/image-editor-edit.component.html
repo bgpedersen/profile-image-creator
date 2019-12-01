@@ -4,7 +4,9 @@
   <section class="sub">Sub menu</section>
   <section class="edit">
     <h2>Image</h2>
-    <img #imageElm src="/assets/images/nopic.jpg" alt="profile" />
+    <app-edit-image *ngIf="imgSrc" [imgSrc]="imgSrc"></app-edit-image>
+
+    <app-upload-image (src)="getSrc($event)" *ngIf="!imgSrc"></app-upload-image>
   </section>
   <footer>Footer</footer>
 </section>
