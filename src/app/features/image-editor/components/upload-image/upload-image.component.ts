@@ -1,4 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { ImageEditorService } from '../../services/image-editor.service';
 
 @Component({
   selector: "app-upload-image",
@@ -6,16 +8,15 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ["./upload-image.component.scss"]
 })
 export class UploadImageComponent implements OnInit {
-  imageURL: string;
-  @Output() src: EventEmitter<string> = new EventEmitter();
+  imgUrl: string;
 
-  constructor() {
-    this.imageURL = "/assets/images/nopic.jpg";
+  constructor(private imageEditorService: ImageEditorService) {
+    this.imgUrl = "/assets/images/nopic.jpg";
   }
 
   ngOnInit() {}
 
-  onUpload() {
-    this.src.emit(this.imageURL);
+  onUpload(imgUrl: string) {
+    this.imageEditorService.$imgUrl.next(imgUrl);
   }
 }

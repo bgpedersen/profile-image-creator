@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, SimpleChange, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: "app-edit-image",
@@ -6,7 +6,7 @@ import { Component, ElementRef, Input, OnInit, SimpleChange, ViewChild } from '@
   styleUrls: ["./edit-image.component.scss"]
 })
 export class EditImageComponent implements OnInit {
-  @Input() imgSrc: string;
+  @Input() imgUrl: string;
   @ViewChild("canvasElm", { static: false }) canvasElm: ElementRef;
   @ViewChild("originalImg", { static: false }) originalImg: ElementRef;
 
@@ -21,20 +21,9 @@ export class EditImageComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
-
-  ngOnChanges(changes: { [property: string]: SimpleChange }) {
-    try {
-      this.readSrc(changes.imgSrc.currentValue.test);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  readSrc(src: string) {
-    debugger;
+  drawCanvas() {
     // Show original img
-    this.originalImg.nativeElement.src = src;
+    this.originalImg.nativeElement.src = this.imgUrl;
 
     const inputImage = new Image();
     // we want to wait for our image to load
@@ -51,6 +40,14 @@ export class EditImageComponent implements OnInit {
       ctx.drawImage(inputImage, 0, 0);
     };
     // start loading our image
-    inputImage.src = src;
+    inputImage.src = this.imgUrl;
+  }
+
+  ngOnInit() {}
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    this.drawCanvas();
   }
 }
