@@ -13,7 +13,6 @@ import { ImageEditorEditComponent } from './pages/image-editor-edit/image-editor
     EditImageComponent,
     ImageEditorEditComponent
   ],
-  imports: [CommonModule, SharedModule, ImageEditorRoutingModule],
-  exports: [UploadImageComponent, EditImageComponent, ImageEditorEditComponent]
+  imports: [CommonModule, SharedModule, ImageEditorRoutingModule]
 })
 export class ImageEditorModule {}

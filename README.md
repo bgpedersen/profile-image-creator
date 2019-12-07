@@ -9,6 +9,7 @@ Furthermore, this project's purpose is also to add to my skills in Angular. TODO
 - [x] Use correct HTML sematic
 - [x] Use SASS - files structure best practice, mixins etc.
 - [x] Use CSS Grid
+- [x] Use template driven approach for subscriptions
 - [ ] Image editing (Upload image, crop to circle, download)
 - [ ] Angular Material or other useful UI Framework
 - [ ] Add Testing (unit test and possibly e2e test)
@@ -26,18 +27,19 @@ Furthermore, this project's purpose is also to add to my skills in Angular. TODO
 
 ## Commands
 
-**Run**
+**Run and open in browser**
 
-`ng serve`
+`npm run start`
 
-**Deploy**
+**Deploy to firebase hosting**
 
 `npm run deploy:hosting`
 
-or to deploy everything:
+**Deploy everything including firebase functions etc**
 
 `npm run deploy:all`
 
+## Tips for coding
 **Scafolding**
 
 Build new lazy loaded feature and add route to main module
