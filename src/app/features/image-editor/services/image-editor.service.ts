@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: "root"
 })
 export class ImageEditorService {
-  public $imgUrl = new BehaviorSubject<string>(null);
+  public dataURL = new BehaviorSubject<string>(null);
 
   constructor() {}
 }

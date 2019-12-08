@@ -40,9 +40,11 @@
 }
 
 footer {
-  background-color: $color2;
+  // background-color: $color2;
   color: $color4;
   grid-area: footer;
+  align-self: center;
+  justify-self: center;
 }
 
 @include for-size(tablet-landscape-up) {

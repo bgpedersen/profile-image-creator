@@ -6,9 +6,9 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
   styleUrls: ["./edit-image.component.scss"]
 })
 export class EditImageComponent implements OnInit {
-  @Input() imgUrl: string;
-  @ViewChild("canvasElm", { static: false }) canvasElm: ElementRef;
-  @ViewChild("originalImg", { static: false }) originalImg: ElementRef;
+  @Input() dataURL: string;
+  @ViewChild("origImg", { static: false }) origImg: ElementRef;
+  @ViewChild("canvasEdit", { static: false }) canvasEdit: ElementRef;
 
   //   var c = document.getElementById("myCanvas");
   // var ctx = c.getContext("2d");
@@ -23,7 +23,7 @@ export class EditImageComponent implements OnInit {
 
   drawCanvas() {
     // Show original img
-    this.originalImg.nativeElement.src = this.imgUrl;
+    this.origImg.nativeElement.src = this.dataURL;
 
     const inputImage = new Image();
     // we want to wait for our image to load
@@ -32,15 +32,15 @@ export class EditImageComponent implements OnInit {
       // const outputImage = document.createElement("canvas");
 
       // set it to the same size as the image
-      this.canvasElm.nativeElement.width = inputImage.naturalWidth;
-      this.canvasElm.nativeElement.height = inputImage.naturalHeight;
+      this.canvasEdit.nativeElement.width = inputImage.naturalWidth;
+      this.canvasEdit.nativeElement.height = inputImage.naturalHeight;
 
       // draw our image at position 0, 0 on the canvas
-      const ctx = this.canvasElm.nativeElement.getContext("2d");
+      const ctx = this.canvasEdit.nativeElement.getContext("2d");
       ctx.drawImage(inputImage, 0, 0);
     };
     // start loading our image
-    inputImage.src = this.imgUrl;
+    inputImage.src = this.dataURL;
   }
 
   ngOnInit() {}

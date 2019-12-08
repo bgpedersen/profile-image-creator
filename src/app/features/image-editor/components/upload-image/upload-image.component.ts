@@ -8,15 +8,22 @@ import { ImageEditorService } from '../../services/image-editor.service';
   styleUrls: ["./upload-image.component.scss"]
 })
 export class UploadImageComponent implements OnInit {
-  imgUrl: string;
-
-  constructor(private imageEditorService: ImageEditorService) {
-    this.imgUrl = "/assets/images/nopic.jpg";
-  }
+  constructor(private imageEditorService: ImageEditorService) {}
 
   ngOnInit() {}
 
-  onUpload(imgUrl: string) {
-    this.imageEditorService.$imgUrl.next(imgUrl);
+  onUpload(fileinputElm: Event) {
+    try {
+      const file = (fileinputElm.target as HTMLInputElement).files[0];
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = (e: any) => {
+        const src = e.target.result.toString();
+        this.imageEditorService.dataURL.next(src);
+      };
+    } catch (e) {
+      console.error("Error reading fileinput: ", e);
+      this.imageEditorService.dataURL.next(null);
+    }
   }
 }

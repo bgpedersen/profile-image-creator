@@ -1,0 +1,13 @@
+#imgEditContainer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(100px, 500px));
+  grid-gap: 5px;
+  justify-content: center;
+  justify-items: center;
+  padding: 5px;
+}
+
+.img {
+  max-width: 100%;
+  overflow: hidden;
+}

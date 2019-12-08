@@ -1,2 +1,6 @@
-<input type="text" name="src" id="src" [value]="imgUrl" />
-<button (click)="onUpload(imgUrl)">Upload</button>
+<input
+  (change)="onUpload($event)"
+  type="file"
+  id="fileinputElm"
+  accept="image/*"
+/>

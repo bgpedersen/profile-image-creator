@@ -3,18 +3,16 @@
   <section class="main">Main menu</section>
   <section class="sub">Sub menu</section>
   <section class="edit">
-    <h2>Image</h2>
-
     <app-edit-image
-      *ngIf="imageEditorService.$imgUrl | async as imgUrl; else uploadImg"
-      [imgUrl]="imgUrl"
+      *ngIf="imageEditorService.dataURL | async as dataURL; else uploadImg"
+      [dataURL]="dataURL"
     ></app-edit-image>
 
     <ng-template #uploadImg>
       <app-upload-image></app-upload-image>
     </ng-template>
   </section>
-  <footer>Footer</footer>
+  <footer>Created by Bjarne Gerhardt-Pedersen</footer>
 </section>
 
 <!-- https://gridbyexample.com/examples/ -->
