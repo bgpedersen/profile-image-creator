@@ -6,11 +6,10 @@
   background-color: $color1;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 4rem 4rem 3rem 1fr 4rem;
+  grid-template-rows: 4rem 4rem 1fr 4rem;
   grid-template-areas:
     "header"
     "main"
-    "sub"
     "edit"
     "footer";
 }
@@ -25,12 +24,6 @@
   background-color: $color3;
   color: $color5;
   grid-area: main;
-}
-
-.sub {
-  background-color: $color3;
-  color: $color5;
-  grid-area: sub;
 }
 
 .edit {
@@ -50,11 +43,10 @@ footer {
 @include for-size(tablet-landscape-up) {
   .container {
     grid-template-columns: auto minmax(auto, 1200px) auto;
-    grid-template-rows: 4rem 4rem 3rem 1fr 4rem;
+    grid-template-rows: 4rem 4rem 1fr 4rem;
     grid-template-areas:
       "header header header"
       ". main ."
-      ". sub ."
       ". edit ."
       "footer footer footer";
   }

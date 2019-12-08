@@ -1,10 +1,9 @@
 <section class="container">
   <app-shared-header class="header"></app-shared-header>
   <section class="main">Main menu</section>
-  <section class="sub">Sub menu</section>
   <section class="edit">
     <app-edit-image
-      *ngIf="imageEditorService.dataURL | async as dataURL; else uploadImg"
+      *ngIf="imageEditorService.$dataURL | async as dataURL; else uploadImg"
       [dataURL]="dataURL"
     ></app-edit-image>
 

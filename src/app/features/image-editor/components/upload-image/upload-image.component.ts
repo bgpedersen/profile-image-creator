@@ -19,11 +19,11 @@ export class UploadImageComponent implements OnInit {
       reader.readAsDataURL(file);
       reader.onloadend = (e: any) => {
         const src = e.target.result.toString();
-        this.imageEditorService.dataURL.next(src);
+        this.imageEditorService.$dataURL.next(src);
       };
     } catch (e) {
       console.error("Error reading fileinput: ", e);
-      this.imageEditorService.dataURL.next(null);
+      this.imageEditorService.$dataURL.next(null);
     }
   }
 }

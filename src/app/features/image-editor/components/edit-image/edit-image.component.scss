@@ -1,13 +1,36 @@
+@import "abstracts/variables";
+@import "abstracts/mixins";
+
 #imgEditContainer {
   display: grid;
-  grid-template-columns: repeat(2, minmax(100px, 500px));
+  grid-template-columns: repeat(2, minmax(100px, 400px));
+  grid-template-rows: 70px minmax(100px, 400px);
   grid-gap: 5px;
   justify-content: center;
-  justify-items: center;
-  padding: 5px;
+}
+
+.sub {
+  grid-column: span 2;
+  background-color: $color3;
+  color: $color5;
 }
 
 .img {
   max-width: 100%;
+  max-height: 100%;
   overflow: hidden;
+}
+
+.btn {
+  border: 1px solid $color4;
+  color: $color4;
+  padding: 10px;
+  margin: 0 5px;
+  background-color: $color3;
+  cursor: pointer;
+}
+
+.downloadDataUrl {
+  grid-column: span 2;
+  justify-self: center;
 }
