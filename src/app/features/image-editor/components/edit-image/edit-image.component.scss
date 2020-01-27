@@ -11,8 +11,8 @@
 
 .sub {
   grid-column: span 2;
-  background-color: $color3;
-  color: $color5;
+  background-color: $primary-light;
+  color: $light;
 }
 
 .img {
@@ -22,11 +22,11 @@
 }
 
 .btn {
-  border: 1px solid $color4;
-  color: $color4;
+  border: 1px solid $light;
+  color: $light;
   padding: 10px;
   margin: 0 5px;
-  background-color: $color3;
+  background-color: $primary-dark;
   cursor: pointer;
 }
 

@@ -3,51 +3,52 @@
 
 .container {
   height: 100%;
-  background-color: $color1;
+  background-color: $light;
+  color: $light;
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 4rem 4rem 1fr 4rem;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auro 1fr 4rem;
   grid-template-areas:
-    "header"
-    "main"
-    "edit"
-    "footer";
+    "header main"
+    "edit edit"
+    "footer footer";
 }
 
 .header {
-  background-color: $color2;
-  color: $color4;
+  background-color: $primary;
+  color: $light;
   grid-area: header;
 }
 
 .main {
-  background-color: $color3;
-  color: $color5;
+  background-color: $primary-dark;
+  color: $light;
   grid-area: main;
 }
 
 .edit {
-  background-color: $color3;
-  color: $color5;
+  background-color: $primary-light;
+  color: $light;
   grid-area: edit;
 }
 
-footer {
-  // background-color: $color2;
-  color: $color4;
+.footer {
+  background-color: $primary;
+  color: $light;
   grid-area: footer;
-  align-self: center;
-  justify-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @include for-size(tablet-landscape-up) {
   .container {
-    grid-template-columns: auto minmax(auto, 1200px) auto;
+    grid-template-columns: 1fr;
     grid-template-rows: 4rem 4rem 1fr 4rem;
     grid-template-areas:
-      "header header header"
-      ". main ."
-      ". edit ."
-      "footer footer footer";
+      "header"
+      "main"
+      "edit"
+      "footer";
   }
 }
