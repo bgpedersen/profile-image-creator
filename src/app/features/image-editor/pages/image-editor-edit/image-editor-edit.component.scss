@@ -6,8 +6,8 @@
   background-color: $light;
   color: $light;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auro 1fr 4rem;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr auto;
   grid-template-areas:
     "header main"
     "edit edit"
@@ -27,8 +27,8 @@
 }
 
 .edit {
-  background-color: $primary-light;
-  color: $light;
+  background-color: $light;
+  color: $dark;
   grid-area: edit;
 }
 
@@ -44,7 +44,7 @@
 @include for-size(tablet-landscape-up) {
   .container {
     grid-template-columns: 1fr;
-    grid-template-rows: 4rem 4rem 1fr 4rem;
+    grid-template-rows: auto auto 1fr auto;
     grid-template-areas:
       "header"
       "main"

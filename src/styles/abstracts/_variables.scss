@@ -1,7 +1,7 @@
 /* Coolors Exported Palette - coolors.co/0c0c0c-20212e-082a3e-7ffbd7-44e5e7 */
 
 $primary: #167a8b;
-$primary-light: #1c93a8;
-$primary-dark: #126877;
+$primary-light: lighten($primary, 5%);
+$primary-dark: darken($primary, 5%);
 $dark: #141414;
 $light: #e9e9e9;
