@@ -62,6 +62,10 @@ export class EditImageComponent implements OnInit {
     inputImage.src = this.dataURL;
   }
 
+  // Need to upload images to firebase
+  // https://www.codewithchintan.com/how-to-upload-and-display-image-file-in-pwa-angular-project-using-firebase-cloud-storage-and-angularfire/amp/
+  // https://console.firebase.google.com/u/0/project/profile-image-creator/storage/profile-image-creator.appspot.com/files
+  // https://console.firebase.google.com/u/0/project/profile-image-creator/extensions/instances/storage-resize-images?tab=usage
   download() {
     const dataURL = this.canvasEdit.nativeElement.toDataURL();
     // set canvasImg image src to dataURL
