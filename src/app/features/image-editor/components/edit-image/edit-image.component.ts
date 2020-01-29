@@ -33,34 +33,33 @@ export class EditImageComponent implements OnInit {
     inputImage.src = this.dataURL;
   }
 
+  // https://stackoverflow.com/questions/4276048/html5-canvas-fill-circle-with-image
   onMakeCircle() {
     const ctx = this.canvasEdit.nativeElement.getContext("2d");
 
     const inputImage = new Image();
     inputImage.onload = () => {
+      ctx.save();
+      ctx.beginPath();
       this.canvasEdit.nativeElement.width = inputImage.naturalWidth;
       this.canvasEdit.nativeElement.height = inputImage.naturalHeight;
-      ctx.drawImage(inputImage, 0, 0);
-
       var centerX = this.canvasEdit.nativeElement.width / 2;
       var centerY = this.canvasEdit.nativeElement.height / 2;
-      var radius = 300;
-      //   var c = document.getElementById("myCanvas");
-      // var ctx = c.getContext("2d");
+      var radius = centerX;
+      ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, true);
+      ctx.closePath();
+      ctx.clip();
+
+      ctx.drawImage(inputImage, 0, 0);
+
       ctx.beginPath();
-      ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-      ctx.lineWidth = 10;
-      ctx.strokeStyle = "#ffffff";
-      // ctx.arc(95, 50, 40, 0, 2 * Math.PI);
-      ctx.stroke();
+      ctx.arc(0, 0, radius, 0, 2 * Math.PI, true);
+      ctx.clip();
+      ctx.closePath();
+      ctx.restore();
     };
 
     inputImage.src = this.dataURL;
-
-    // ctx.stroke();
-
-    // Cropping WIP
-    // https://pqina.nl/blog/cropping-images-to-an-aspect-ratio-with-javascript/
   }
 
   download() {
