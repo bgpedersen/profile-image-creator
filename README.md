@@ -18,7 +18,7 @@ Furthermore, this project's purpose is also to add to my skills in Angular. TODO
 - [ ] Authentication
 - [ ] Guards
 - [ ] Save images to firestore for logged in user
-- [ ] Setup CI, so when to push/merge to GitHub Master branch -> automatically deploy to firebase
+- [ ] Setup CI/CD with GitHub Actions and workflow, so when to push/merge to GitHub Master branch -> automatically test and deploy to firebase
 
 ## Tools
 
