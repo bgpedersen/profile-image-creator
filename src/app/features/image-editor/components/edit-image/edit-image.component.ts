@@ -13,7 +13,7 @@ export class EditImageComponent implements OnInit {
   @ViewChild("canvasEdit", { static: false }) canvasEdit: ElementRef;
   downloadDataUrl: string = null;
 
-  constructor(private imageEditorService: ImageEditorService) {}
+  constructor(public imageEditorService: ImageEditorService) {}
 
   onReset() {
     this.imageEditorService.$dataURL.next(null);
