@@ -1,28 +1,30 @@
 <div id="imgEditContainer">
-  <div class="sub">
+  <div class="menu">
     <button *ngIf="!downloadDataUrl" class="btn" (click)="onMakeCircle()">
       Circle
     </button>
-    <button *ngIf="!downloadDataUrl" class="btn" (click)="download()">
+    <button *ngIf="!downloadDataUrl" class="btn" (click)="onDownload()">
       Download
     </button>
     <button (click)="onReset()" class="btn">reset</button>
   </div>
 
-  <div *ngIf="!downloadDataUrl" class="orig">
-    <p class="text-center">Original</p>
-    <img #origImg src="" alt="origImg" class="img" />
-  </div>
+  <section *ngIf="!downloadDataUrl; else download" class="content">
+    <div class="container-image">
+      <p class="image-header">Original</p>
+      <img #origImg src="" alt="origImg" class="img" />
+    </div>
 
-  <div *ngIf="!downloadDataUrl" class="edit">
-    <p class="text-center">Edit</p>
-    <canvas #canvasEdit id="imgEdit" class="img"></canvas>
-  </div>
+    <div class="container-image">
+      <p class="image-header">Edit</p>
+      <canvas #canvasEdit id="imgEdit" class="img"></canvas>
+    </div>
+  </section>
 
-  <div *ngIf="downloadDataUrl" class="downloadDataUrl">
+  <ng-template #download class="content">
     <div style="text-align: center;">
       <strong>Right click image to download!</strong>
     </div>
     <img class="img" [src]="downloadDataUrl" alt="downloadDataUrl" />
-  </div>
+  </ng-template>
 </div>

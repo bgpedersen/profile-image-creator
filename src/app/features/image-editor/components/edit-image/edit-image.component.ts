@@ -43,9 +43,11 @@ export class EditImageComponent implements OnInit {
       ctx.beginPath();
       this.canvasEdit.nativeElement.width = inputImage.naturalWidth;
       this.canvasEdit.nativeElement.height = inputImage.naturalHeight;
-      var centerX = this.canvasEdit.nativeElement.width / 2;
-      var centerY = this.canvasEdit.nativeElement.height / 2;
-      var radius = centerX;
+      let centerX = this.canvasEdit.nativeElement.width / 2;
+      let centerY = this.canvasEdit.nativeElement.height / 2;
+      // Radius should be smallest of width or height
+      let radius = centerX < centerY ? centerX : centerY;
+
       ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, true);
       ctx.closePath();
       ctx.clip();
@@ -66,7 +68,7 @@ export class EditImageComponent implements OnInit {
   // https://www.codewithchintan.com/how-to-upload-and-display-image-file-in-pwa-angular-project-using-firebase-cloud-storage-and-angularfire/amp/
   // https://console.firebase.google.com/u/0/project/profile-image-creator/storage/profile-image-creator.appspot.com/files
   // https://console.firebase.google.com/u/0/project/profile-image-creator/extensions/instances/storage-resize-images?tab=usage
-  download() {
+  onDownload() {
     const dataURL = this.canvasEdit.nativeElement.toDataURL();
     // set canvasImg image src to dataURL
     // so it can be saved as an image
