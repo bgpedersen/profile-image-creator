@@ -11,12 +11,11 @@ export class EditImageComponent implements OnInit {
   @Input() dataURL: string;
   @ViewChild("origImg", { static: false }) origImg: ElementRef;
   @ViewChild("canvasEdit", { static: false }) canvasEdit: ElementRef;
-  downloadDataUrl: string = null;
 
   constructor(public imageEditorService: ImageEditorService) {}
 
   onReset() {
-    this.imageEditorService.$dataURL.next(null);
+    this.imageEditorService.resetDataUrl();
   }
 
   drawCanvas() {
@@ -64,22 +63,17 @@ export class EditImageComponent implements OnInit {
     inputImage.src = this.dataURL;
   }
 
-  // Need to upload images to firebase
-  // https://www.codewithchintan.com/how-to-upload-and-display-image-file-in-pwa-angular-project-using-firebase-cloud-storage-and-angularfire/amp/
-  // https://console.firebase.google.com/u/0/project/profile-image-creator/storage/profile-image-creator.appspot.com/files
-  // https://console.firebase.google.com/u/0/project/profile-image-creator/extensions/instances/storage-resize-images?tab=usage
   onDownload() {
-    const dataURL = this.canvasEdit.nativeElement.toDataURL();
-    // set canvasImg image src to dataURL
-    // so it can be saved as an image
-    this.downloadDataUrl = dataURL;
+    let canvasElm = this.canvasEdit.nativeElement;
+    canvasElm.toBlob(e => {
+      const blob = e;
+      this.imageEditorService.upload(blob);
+    }, "image/png");
   }
 
   ngOnInit() {}
 
   ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
     this.drawCanvas();
   }
 }

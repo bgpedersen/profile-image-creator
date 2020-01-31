@@ -1,15 +1,15 @@
 <div id="imgEditContainer">
   <div class="menu">
-    <button *ngIf="!downloadDataUrl" class="btn" (click)="onMakeCircle()">
+    <button class="btn" (click)="onMakeCircle()">
       Circle
     </button>
-    <button *ngIf="!downloadDataUrl" class="btn" (click)="onDownload()">
+    <button class="btn" (click)="onDownload()">
       Download
     </button>
     <button (click)="onReset()" class="btn">reset</button>
   </div>
 
-  <section *ngIf="!downloadDataUrl; else download">
+  <section>
     <div class="container-image">
       <p class="image-header">Original</p>
       <img #origImg src="" alt="origImg" class="img" />
@@ -21,55 +21,47 @@
     </div>
   </section>
 
-  <ng-template #download>
-    <section>
-      <div class="container-image">
-        <!-- <p class="image-header">Right click image to download!</p> -->
-        <progress
-          max="100"
-          [value]="imageEditorService.$uploadProgress | async"
-        ></progress>
+  <!-- template color errors are angular language service extention -->
 
-        <div
-          *ngIf="imageEditorService.downloadURL | async as downloadURL"
-          class="result"
-        >
-          <a [href]="downloadURL">You just uploaded this file!</a>
-        </div>
+  <section *ngIf="imageEditorService.$uploadProgress | async">
+    <div class="container-image">
+      <!-- <p class="image-header">Right click image to download!</p> -->
+      <progress
+        max="100"
+        [value]="imageEditorService.$uploadProgress | async"
+      ></progress>
 
-        <section
-          class="control-bar"
-          *ngIf="imageEditorService.uploadState | async as state"
-        >
-          <button
-            (click)="imageEditorService.task.pause()"
-            [disabled]="state === 'paused'"
-          >
-            Pause
-          </button>
-          <button
-            (click)="imageEditorService.task.cancel()"
-            [disabled]="!(state === 'paused' || state === 'running')"
-          >
-            Cancel
-          </button>
-          <button
-            (click)="imageEditorService.task.resume()"
-            [disabled]="state === 'running'"
-          >
-            Resume
-          </button>
-        </section>
-
-        <div
-          class="container"
-          *ngIf="imageEditorService.downloadURL | async as downloadURL"
-        >
-          <img [src]="downloadURL" alt="Image from AngularFireStorage" />
-        </div>
-
-        <!-- <img [src]="downloadDataUrl" alt="downloadDataUrl" class="img" /> -->
+      <div
+        *ngIf="imageEditorService.$downloadURL | async as downloadURL"
+        class="result"
+      >
+        <a [href]="downloadURL">You just uploaded this file!</a>
+        <img [src]="downloadURL" alt="Image from AngularFireStorage" />
       </div>
-    </section>
-  </ng-template>
+
+      <section
+        class="control-bar"
+        *ngIf="imageEditorService.$uploadState | async as state"
+      >
+        <button
+          (click)="imageEditorService.task.pause()"
+          [disabled]="state === 'paused'"
+        >
+          Pause
+        </button>
+        <button
+          (click)="imageEditorService.task.cancel()"
+          [disabled]="!(state === 'paused' || state === 'running')"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="imageEditorService.task.resume()"
+          [disabled]="state === 'running'"
+        >
+          Resume
+        </button>
+      </section>
+    </div>
+  </section>
 </div>
