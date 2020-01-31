@@ -11,6 +11,7 @@ Furthermore, this project's purpose is also to add to my skills in Angular. TODO
 - [x] Use CSS Grid
 - [x] Use template driven approach for subscriptions
 - [x] Crop image to circle using canvas techiques
+- [ ] Setup firebase storage rules / authentication to allow upload image
 - [ ] Upload image, rezise to 3 sizes, and option to download https://www.codewithchintan.com/how-to-upload-and-display-image-file-in-pwa-angular-project-using-firebase-cloud-storage-and-angularfire/amp/
 - [ ] Angular Material or other useful UI Framework
 - [ ] Add Testing (unit test and possibly e2e test)
