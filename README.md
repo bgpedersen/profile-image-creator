@@ -8,7 +8,7 @@ Furthermore, this project's purpose is also to add to my skills in Angular. TODO
 - [x] Lazy loaded features modules
 - [x] Use correct HTML sematic
 - [x] Use SASS - files structure best practice, mixins etc.
-- [x] Use CSS Grid
+- [x] Use CSS Grid and Flexbox for layout and responsiveness
 - [x] Use template driven approach for subscriptions
 - [x] Crop image to circle using canvas techiques
 - [ ] Setup firebase storage rules / authentication to allow upload image
