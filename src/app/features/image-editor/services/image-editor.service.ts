@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/storage';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class ImageEditorService {
   $uploadProgress: Observable<number>;
   $downloadURL: Observable<any>;
   $uploadState: Observable<string>;
-  downloadUrls: string[] = ["empty"];
+  $downloadUrls: Subject<string[]>;
   downloadPath = "gs://profile-image-creator.appspot.com/images/thumbs";
 
   constructor(private afStorage: AngularFireStorage) {}
@@ -45,16 +45,11 @@ export class ImageEditorService {
         finalize(() => {
           // this.$downloadURL = this.ref.getDownloadURL();
           console.log("DONE", this.task);
-          this.downloadUrls = ["empty"];
-          this.downloadUrls.push(
-            `${this.downloadPath}/${randomId}_200x200.png`
-          );
-          this.downloadUrls.push(
-            `${this.downloadPath}/${randomId}_400x400.png`
-          );
-          this.downloadUrls.push(
+          this.$downloadUrls.next([
+            `${this.downloadPath}/${randomId}_200x200.png`,
+            `${this.downloadPath}/${randomId}_400x400.png`,
             `${this.downloadPath}/${randomId}_600x600.png`
-          );
+          ]);
         })
       )
       .subscribe(res => console.log("task snapshotChanges", res));

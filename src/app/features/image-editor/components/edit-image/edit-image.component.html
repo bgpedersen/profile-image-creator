@@ -21,8 +21,6 @@
     </div>
   </section>
 
-  {{ imageEditorService.downloadUrls[0] }}
-
   <section>
     <progress
       max="100"
@@ -31,7 +29,10 @@
 
     <div class="result">
       <a
-        *ngFor="let downloadURL of imageEditorService.downloadUrls"
+        *ngFor="
+          let downloadURL of imageEditorService.$downloadUrls
+            | async as downloadUrls
+        "
         [href]="downloadURL"
         >{{ downloadURL }}</a
       >
