@@ -21,23 +21,20 @@
     </div>
   </section>
 
-  <!-- template color errors are angular language service extention -->
+  {{ imageEditorService.downloadUrls[0] }}
 
-  <section *ngIf="imageEditorService.$uploadProgress | async">
-    <div class="container-image">
-      <!-- <p class="image-header">Right click image to download!</p> -->
-      <progress
-        max="100"
-        [value]="imageEditorService.$uploadProgress | async"
-      ></progress>
+  <section>
+    <progress
+      max="100"
+      [value]="imageEditorService.$uploadProgress | async"
+    ></progress>
 
-      <div
-        *ngIf="imageEditorService.$downloadURL | async as downloadURL"
-        class="result"
+    <div class="result">
+      <a
+        *ngFor="let downloadURL of imageEditorService.downloadUrls"
+        [href]="downloadURL"
+        >{{ downloadURL }}</a
       >
-        <a [href]="downloadURL">You just uploaded this file!</a>
-        <img [src]="downloadURL" alt="Image from AngularFireStorage" />
-      </div>
 
       <section
         class="control-bar"

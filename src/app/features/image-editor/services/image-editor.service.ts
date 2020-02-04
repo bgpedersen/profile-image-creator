@@ -13,8 +13,13 @@ export class ImageEditorService {
   $uploadProgress: Observable<number>;
   $downloadURL: Observable<any>;
   $uploadState: Observable<string>;
+  downloadUrls: string[] = ["empty"];
+  downloadPath = "gs://profile-image-creator.appspot.com/images/thumbs";
 
   constructor(private afStorage: AngularFireStorage) {}
+
+  // TODO set up rules authentication
+  // https://firebase.google.com/docs/rules/basics?authuser=0
 
   // function to upload file
   upload = (blob: Blob) => {
@@ -29,15 +34,31 @@ export class ImageEditorService {
 
     // observe upload progress
     this.$uploadProgress = this.task.percentageChanges();
+    this.$uploadProgress.subscribe(res =>
+      console.log(console.log("$uploadProgress", res))
+    );
+
     // get notified when the download URL is available
     this.task
       .snapshotChanges()
       .pipe(
         finalize(() => {
-          this.$downloadURL = this.ref.getDownloadURL();
+          // this.$downloadURL = this.ref.getDownloadURL();
+          console.log("DONE", this.task);
+          this.downloadUrls = ["empty"];
+          this.downloadUrls.push(
+            `${this.downloadPath}/${randomId}_200x200.png`
+          );
+          this.downloadUrls.push(
+            `${this.downloadPath}/${randomId}_400x400.png`
+          );
+          this.downloadUrls.push(
+            `${this.downloadPath}/${randomId}_600x600.png`
+          );
         })
       )
-      .subscribe();
+      .subscribe(res => console.log("task snapshotChanges", res));
+
     this.$uploadState = this.task.snapshotChanges().pipe(map(s => s.state));
   };
 
