@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/storage';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
 @Injectable({
@@ -10,10 +10,10 @@ export class ImageEditorService {
   public $dataURL = new BehaviorSubject<string>(null);
   ref: AngularFireStorageReference;
   task: AngularFireUploadTask;
-  $uploadProgress: Observable<number>;
+  $uploadProgress = new Observable<number>(null);
   $downloadURL: Observable<any>;
   $uploadState: Observable<string>;
-  $downloadUrls: Subject<string[]>;
+  public $downloadUrls = new BehaviorSubject<string[]>(null);
   downloadPath = "gs://profile-image-creator.appspot.com/images/thumbs";
 
   constructor(private afStorage: AngularFireStorage) {}
@@ -34,9 +34,9 @@ export class ImageEditorService {
 
     // observe upload progress
     this.$uploadProgress = this.task.percentageChanges();
-    this.$uploadProgress.subscribe(res =>
-      console.log(console.log("$uploadProgress", res))
-    );
+    // this.$uploadProgress.subscribe(res =>
+    //   console.log(console.log("$uploadProgress", res))
+    // );
 
     // get notified when the download URL is available
     this.task
@@ -59,5 +59,6 @@ export class ImageEditorService {
 
   resetDataUrl() {
     this.$dataURL.next(null);
+    this.$downloadUrls.next(null);
   }
 }

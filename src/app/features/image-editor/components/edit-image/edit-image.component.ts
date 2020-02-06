@@ -71,6 +71,18 @@ export class EditImageComponent implements OnInit {
     }, "image/png");
   }
 
+  public get $downloadUrls() {
+    return this.imageEditorService.$downloadUrls;
+  }
+
+  public get $uploadProgress() {
+    return this.imageEditorService.$uploadProgress;
+  }
+
+  public get $uploadState() {
+    return this.imageEditorService.$uploadState;
+  }
+
   ngOnInit() {}
 
   ngAfterViewInit(): void {

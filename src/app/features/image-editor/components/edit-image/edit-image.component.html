@@ -21,41 +21,32 @@
     </div>
   </section>
 
-  <section>
-    <progress
-      max="100"
-      [value]="imageEditorService.$uploadProgress | async"
-    ></progress>
+  <section *ngIf="$downloadUrls | async as downloadUrls">
+    <progress max="100" [value]="$uploadProgress | async"></progress>
 
     <div class="result">
-      <a
-        *ngFor="
-          let downloadURL of imageEditorService.$downloadUrls
-            | async as downloadUrls
-        "
-        [href]="downloadURL"
-        >{{ downloadURL }}</a
-      >
+      <ul>
+        <li *ngFor="let downloadURL of downloadUrls">
+          <a [href]="downloadURL">{{ downloadURL }}</a>
+        </li>
+      </ul>
 
-      <section
-        class="control-bar"
-        *ngIf="imageEditorService.$uploadState | async as state"
-      >
+      <section class="control-bar" *ngIf="$uploadState | async as uploadState">
         <button
           (click)="imageEditorService.task.pause()"
-          [disabled]="state === 'paused'"
+          [disabled]="uploadState === 'paused'"
         >
           Pause
         </button>
         <button
           (click)="imageEditorService.task.cancel()"
-          [disabled]="!(state === 'paused' || state === 'running')"
+          [disabled]="!(uploadState === 'paused' || uploadState === 'running')"
         >
           Cancel
         </button>
         <button
           (click)="imageEditorService.task.resume()"
-          [disabled]="state === 'running'"
+          [disabled]="uploadState === 'running'"
         >
           Resume
         </button>
