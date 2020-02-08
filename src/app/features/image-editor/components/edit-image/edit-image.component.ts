@@ -9,8 +9,8 @@ import { ImageEditorService } from '../../services/image-editor.service';
 })
 export class EditImageComponent implements OnInit {
   @Input() dataURL: string;
-  @ViewChild("origImg", { static: false }) origImg: ElementRef;
-  @ViewChild("canvasEdit", { static: false }) canvasEdit: ElementRef;
+  @ViewChild("origImg") origImg: ElementRef;
+  @ViewChild("canvasEdit") canvasEdit: ElementRef;
 
   constructor(public imageEditorService: ImageEditorService) {}
 
