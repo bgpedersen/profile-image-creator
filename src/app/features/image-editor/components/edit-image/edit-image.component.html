@@ -1,4 +1,4 @@
-<div id="imgEditContainer">
+<div class="container edit-image">
   <div class="menu">
     <button class="btn" (click)="onMakeCircle()">
       Circle
@@ -9,7 +9,7 @@
     <button (click)="onReset()" class="btn">reset</button>
   </div>
 
-  <section>
+  <section class="edit">
     <div class="container-image">
       <p class="image-header">Original</p>
       <img #origImg src="" alt="origImg" class="img" />
@@ -21,36 +21,53 @@
     </div>
   </section>
 
-  <section *ngIf="$downloadUrls | async as downloadUrls">
-    <progress max="100" [value]="$uploadProgress | async"></progress>
+  <div class="download">
+    <section
+      *ngIf="$downloadUrls | async as downloadUrls; else downloadUrlsLoading"
+    >
+      <progress max="100" [value]="$uploadProgress | async"></progress>
 
-    <div class="result">
-      <ul>
-        <li *ngFor="let downloadURL of downloadUrls">
-          <a [href]="downloadURL">{{ downloadURL }}</a>
-        </li>
-      </ul>
+      <div class="result">
+        <ul>
+          <li *ngFor="let downloadURL of downloadUrls">
+            <a [href]="downloadURL">{{ downloadURL }}</a>
+          </li>
+        </ul>
 
-      <section class="control-bar" *ngIf="$uploadState | async as uploadState">
-        <button
-          (click)="imageEditorService.task.pause()"
-          [disabled]="uploadState === 'paused'"
+        <section
+          class="control-bar"
+          *ngIf="$uploadState | async as uploadState; else uploadStateLoading"
         >
-          Pause
-        </button>
-        <button
-          (click)="imageEditorService.task.cancel()"
-          [disabled]="!(uploadState === 'paused' || uploadState === 'running')"
-        >
-          Cancel
-        </button>
-        <button
-          (click)="imageEditorService.task.resume()"
-          [disabled]="uploadState === 'running'"
-        >
-          Resume
-        </button>
-      </section>
-    </div>
-  </section>
+          <button
+            (click)="imageEditorService.task.pause()"
+            [disabled]="uploadState === 'paused'"
+          >
+            Pause
+          </button>
+          <button
+            (click)="imageEditorService.task.cancel()"
+            [disabled]="
+              !(uploadState === 'paused' || uploadState === 'running')
+            "
+          >
+            Cancel
+          </button>
+          <button
+            (click)="imageEditorService.task.resume()"
+            [disabled]="uploadState === 'running'"
+          >
+            Resume
+          </button>
+        </section>
+
+        <ng-template #uploadStateLoading>
+          uploadStateLoading ...
+        </ng-template>
+      </div>
+    </section>
+
+    <ng-template #downloadUrlsLoading>
+      downloadUrlsLoading ...
+    </ng-template>
+  </div>
 </div>

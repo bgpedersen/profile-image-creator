@@ -1,6 +1,6 @@
 <section class="container">
-  <app-shared-header class="header"></app-shared-header>
-  <!-- <section class="main">Main menu</section> -->
+  <app-shared-header></app-shared-header>
+
   <section class="edit">
     <app-edit-image
       *ngIf="imageEditorService.$dataURL | async as dataURL; else uploadImg"
@@ -11,7 +11,6 @@
       <app-upload-image></app-upload-image>
     </ng-template>
   </section>
-  <footer class="footer"><p>Created by Bjarne Gerhardt-Pedersen</p></footer>
-</section>
 
-<!-- https://gridbyexample.com/examples/ -->
+  <footer><p>Created by Bjarne Gerhardt-Pedersen</p></footer>
+</section>

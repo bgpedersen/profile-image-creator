@@ -1,3 +1,10 @@
+@import "../../../../styles/abstracts/variables";
+
+:host {
+  background-color: $primary;
+  color: $light;
+}
+
 .header {
   display: flex;
   align-content: center;
