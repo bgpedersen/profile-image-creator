@@ -1,22 +1,30 @@
 import { Injectable } from '@angular/core';
-import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/storage';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {
+  AngularFireStorage,
+  AngularFireStorageReference,
+  AngularFireUploadTask
+} from '@angular/fire/storage';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ImageEditorService {
   public $dataURL = new BehaviorSubject<string>(null);
   ref: AngularFireStorageReference;
   task: AngularFireUploadTask;
   $uploadProgress = new Observable<number>(null);
-  $downloadURL: Observable<any>;
+  // $downloadURL: Observable<any>;
   $uploadState: Observable<string>;
-  public $downloadUrls = new BehaviorSubject<string[]>(null);
-  downloadPath = "gs://profile-image-creator.appspot.com/images/thumbs";
+  private downloadUrls$ = new Subject<string[]>();
+  downloadPath = 'gs://profile-image-creator.appspot.com/images/thumbs';
 
   constructor(private afStorage: AngularFireStorage) {}
+
+  listenDownloadUrls() {
+    return this.downloadUrls$;
+  }
 
   // TODO set up rules authentication
   // https://firebase.google.com/docs/rules/basics?authuser=0
@@ -28,7 +36,7 @@ export class ImageEditorService {
       .toString(36)
       .substring(2);
     // create a reference to the storage bucket location
-    this.ref = this.afStorage.ref("/images/" + randomId);
+    this.ref = this.afStorage.ref('/images/' + randomId);
     // the put method creates an AngularFireUploadTask and kicks off the upload
     this.task = this.ref.put(blob);
 
@@ -44,21 +52,21 @@ export class ImageEditorService {
       .pipe(
         finalize(() => {
           // this.$downloadURL = this.ref.getDownloadURL();
-          console.log("DONE", this.task);
-          this.$downloadUrls.next([
+          console.log('DONE', this.task);
+          this.downloadUrls$.next([
             `${this.downloadPath}/${randomId}_200x200.png`,
             `${this.downloadPath}/${randomId}_400x400.png`,
             `${this.downloadPath}/${randomId}_600x600.png`
           ]);
         })
       )
-      .subscribe(res => console.log("task snapshotChanges", res));
+      .subscribe(res => console.log('task snapshotChanges', res));
 
     this.$uploadState = this.task.snapshotChanges().pipe(map(s => s.state));
   };
 
   resetDataUrl() {
     this.$dataURL.next(null);
-    this.$downloadUrls.next(null);
+    this.downloadUrls$.next([]);
   }
 }

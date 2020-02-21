@@ -1,16 +1,29 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { ImageEditorService } from '../../services/image-editor.service';
 
 @Component({
-  selector: "app-edit-image",
-  templateUrl: "./edit-image.component.html",
-  styleUrls: ["./edit-image.component.scss"]
+  selector: 'app-edit-image',
+  templateUrl: './edit-image.component.html',
+  styleUrls: ['./edit-image.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
-export class EditImageComponent implements OnInit {
+export class EditImageComponent implements OnInit, AfterViewInit {
   @Input() dataURL: string;
-  @ViewChild("origImg") origImg: ElementRef;
-  @ViewChild("canvasEdit") canvasEdit: ElementRef;
+  @ViewChild('origImg') origImg: ElementRef;
+  @ViewChild('canvasEdit') canvasEdit: ElementRef;
+  subs: Subscription[] = [];
+  downloadUrls: string[] = [];
+  public testMe = 'nothing';
 
   constructor(public imageEditorService: ImageEditorService) {}
 
@@ -25,7 +38,7 @@ export class EditImageComponent implements OnInit {
     inputImage.onload = () => {
       this.canvasEdit.nativeElement.width = inputImage.naturalWidth;
       this.canvasEdit.nativeElement.height = inputImage.naturalHeight;
-      const ctx = this.canvasEdit.nativeElement.getContext("2d");
+      const ctx = this.canvasEdit.nativeElement.getContext('2d');
 
       ctx.drawImage(inputImage, 0, 0);
     };
@@ -34,7 +47,7 @@ export class EditImageComponent implements OnInit {
 
   // https://stackoverflow.com/questions/4276048/html5-canvas-fill-circle-with-image
   onMakeCircle() {
-    const ctx = this.canvasEdit.nativeElement.getContext("2d");
+    const ctx = this.canvasEdit.nativeElement.getContext('2d');
 
     const inputImage = new Image();
     inputImage.onload = () => {
@@ -42,10 +55,10 @@ export class EditImageComponent implements OnInit {
       ctx.beginPath();
       this.canvasEdit.nativeElement.width = inputImage.naturalWidth;
       this.canvasEdit.nativeElement.height = inputImage.naturalHeight;
-      let centerX = this.canvasEdit.nativeElement.width / 2;
-      let centerY = this.canvasEdit.nativeElement.height / 2;
+      const centerX = this.canvasEdit.nativeElement.width / 2;
+      const centerY = this.canvasEdit.nativeElement.height / 2;
       // Radius should be smallest of width or height
-      let radius = centerX < centerY ? centerX : centerY;
+      const radius = centerX < centerY ? centerX : centerY;
 
       ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, true);
       ctx.closePath();
@@ -64,16 +77,16 @@ export class EditImageComponent implements OnInit {
   }
 
   onDownload() {
-    let canvasElm = this.canvasEdit.nativeElement;
+    const canvasElm = this.canvasEdit.nativeElement;
     canvasElm.toBlob(e => {
       const blob = e;
       this.imageEditorService.upload(blob);
-    }, "image/png");
+    }, 'image/png');
   }
 
-  public get $downloadUrls() {
-    return this.imageEditorService.$downloadUrls;
-  }
+  // public get $downloadUrls() {
+  // return this.imageEditorService.$downloadUrls;
+  // }
 
   public get $uploadProgress() {
     return this.imageEditorService.$uploadProgress;
@@ -83,9 +96,20 @@ export class EditImageComponent implements OnInit {
     return this.imageEditorService.$uploadState;
   }
 
+  listenDownloadUrls() {
+    this.subs.push(
+      this.imageEditorService.listenDownloadUrls().subscribe(res => {
+        this.downloadUrls = res;
+        this.testMe = 'image download';
+        // this.changeDetectorRef.detectChanges();
+      })
+    );
+  }
+
   ngOnInit() {}
 
   ngAfterViewInit(): void {
     this.drawCanvas();
+    this.listenDownloadUrls();
   }
 }

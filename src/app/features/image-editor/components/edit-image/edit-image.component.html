@@ -7,6 +7,10 @@
       Download
     </button>
     <button (click)="onReset()" class="btn">reset</button>
+
+    <div *ngFor="let item of downloadUrls">{{ item }}</div>
+    {{ downloadUrls[0] }}
+    {{ testMe }}
   </div>
 
   <section class="edit">
@@ -22,10 +26,12 @@
   </section>
 
   <div class="download">
-    <section
-      *ngIf="$downloadUrls | async as downloadUrls; else downloadUrlsLoading"
-    >
-      <progress max="100" [value]="$uploadProgress | async"></progress>
+    {{ downloadUrls }}
+    <section *ngIf="downloadUrls.length; else downloadUrlsLoading">
+      <progress
+        max="100"
+        [value]="imageEditorService.$uploadProgress | async"
+      ></progress>
 
       <div class="result">
         <ul>
@@ -36,7 +42,10 @@
 
         <section
           class="control-bar"
-          *ngIf="$uploadState | async as uploadState; else uploadStateLoading"
+          *ngIf="
+            imageEditorService.$uploadState | async as uploadState;
+            else uploadStateLoading
+          "
         >
           <button
             (click)="imageEditorService.task.pause()"
