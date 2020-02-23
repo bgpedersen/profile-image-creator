@@ -3,7 +3,10 @@
 
   <section class="edit">
     <app-edit-image
-      *ngIf="imageEditorService.$dataURL | async as dataURL; else uploadImg"
+      *ngIf="
+        imageEditorService.imageHandler.imgDataUrl$ | async as dataURL;
+        else uploadImg
+      "
       [dataURL]="dataURL"
     ></app-edit-image>
 

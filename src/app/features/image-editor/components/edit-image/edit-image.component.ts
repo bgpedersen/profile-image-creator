@@ -7,7 +7,6 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import { Subscription } from 'rxjs';
 
 import { ImageEditorService } from '../../services/image-editor.service';
 
@@ -21,9 +20,7 @@ export class EditImageComponent implements OnInit, AfterViewInit {
   @Input() dataURL: string;
   @ViewChild('origImg') origImg: ElementRef;
   @ViewChild('canvasEdit') canvasEdit: ElementRef;
-  subs: Subscription[] = [];
-  downloadUrls: string[] = [];
-  public testMe = 'nothing';
+  downloadUrls: any;
 
   constructor(public imageEditorService: ImageEditorService) {}
 
@@ -76,40 +73,24 @@ export class EditImageComponent implements OnInit, AfterViewInit {
     inputImage.src = this.dataURL;
   }
 
-  onDownload() {
-    const canvasElm = this.canvasEdit.nativeElement;
-    canvasElm.toBlob(e => {
-      const blob = e;
-      this.imageEditorService.upload(blob);
-    }, 'image/png');
+  canvasToBlob(canvas, type = 'type/png') {
+    return new Promise<Blob>((resolve, reject) => {
+      const nativeElm = canvas.nativeElement;
+      return nativeElm.toBlob(blob => {
+        return resolve(blob);
+      }, type);
+    });
   }
 
-  // public get $downloadUrls() {
-  // return this.imageEditorService.$downloadUrls;
-  // }
-
-  public get $uploadProgress() {
-    return this.imageEditorService.$uploadProgress;
-  }
-
-  public get $uploadState() {
-    return this.imageEditorService.$uploadState;
-  }
-
-  listenDownloadUrls() {
-    this.subs.push(
-      this.imageEditorService.listenDownloadUrls().subscribe(res => {
-        this.downloadUrls = res;
-        this.testMe = 'image download';
-        // this.changeDetectorRef.detectChanges();
-      })
-    );
+  async onDownload() {
+    const blob = await this.canvasToBlob(this.canvasEdit);
+    this.downloadUrls = await this.imageEditorService.upload(blob);
+    console.log(this.downloadUrls);
   }
 
   ngOnInit() {}
 
   ngAfterViewInit(): void {
     this.drawCanvas();
-    this.listenDownloadUrls();
   }
 }

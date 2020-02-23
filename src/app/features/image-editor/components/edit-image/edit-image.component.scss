@@ -1,5 +1,5 @@
-@import "abstracts/variables";
-@import "abstracts/mixins";
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
 
 .container {
   height: 100%;
@@ -7,9 +7,9 @@
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
-    "menu"
-    "edit"
-    "download";
+    'menu'
+    'edit'
+    'download';
 }
 
 .menu {
@@ -17,6 +17,11 @@
   padding: 5px;
   background-color: $primary-light;
   color: $light;
+  display: flex;
+  li {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .edit {

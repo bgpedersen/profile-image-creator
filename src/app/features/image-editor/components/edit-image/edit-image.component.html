@@ -7,10 +7,15 @@
       Download
     </button>
     <button (click)="onReset()" class="btn">reset</button>
-
-    <div *ngFor="let item of downloadUrls">{{ item }}</div>
-    {{ downloadUrls[0] }}
-    {{ testMe }}
+    <div>
+      <ul *ngIf="downloadUrls">
+        <li *ngFor="let item of downloadUrls">
+          <a download target="_blank" href="{{ item.url | async }}">{{
+            item.title
+          }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <section class="edit">
@@ -24,59 +29,4 @@
       <canvas #canvasEdit id="imgEdit" class="img"></canvas>
     </div>
   </section>
-
-  <div class="download">
-    {{ downloadUrls }}
-    <section *ngIf="downloadUrls.length; else downloadUrlsLoading">
-      <progress
-        max="100"
-        [value]="imageEditorService.$uploadProgress | async"
-      ></progress>
-
-      <div class="result">
-        <ul>
-          <li *ngFor="let downloadURL of downloadUrls">
-            <a [href]="downloadURL">{{ downloadURL }}</a>
-          </li>
-        </ul>
-
-        <section
-          class="control-bar"
-          *ngIf="
-            imageEditorService.$uploadState | async as uploadState;
-            else uploadStateLoading
-          "
-        >
-          <button
-            (click)="imageEditorService.task.pause()"
-            [disabled]="uploadState === 'paused'"
-          >
-            Pause
-          </button>
-          <button
-            (click)="imageEditorService.task.cancel()"
-            [disabled]="
-              !(uploadState === 'paused' || uploadState === 'running')
-            "
-          >
-            Cancel
-          </button>
-          <button
-            (click)="imageEditorService.task.resume()"
-            [disabled]="uploadState === 'running'"
-          >
-            Resume
-          </button>
-        </section>
-
-        <ng-template #uploadStateLoading>
-          uploadStateLoading ...
-        </ng-template>
-      </div>
-    </section>
-
-    <ng-template #downloadUrlsLoading>
-      downloadUrlsLoading ...
-    </ng-template>
-  </div>
 </div>
