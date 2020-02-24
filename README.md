@@ -11,8 +11,8 @@ Furthermore, this project's purpose is also to add to my skills in Angular. TODO
 - [x] Use CSS Grid and Flexbox for layout and responsiveness
 - [x] Use template driven approach for subscriptions
 - [x] Crop image to circle using canvas techiques
-- [ ] Setup firebase storage rules / authentication to allow upload image
-- [ ] Upload image, rezise to 3 sizes, and option to download https://www.codewithchintan.com/how-to-upload-and-display-image-file-in-pwa-angular-project-using-firebase-cloud-storage-and-angularfire/amp/
+- [x] Setup firebase storage rules / authentication to allow upload image and download resized images
+- [x] Upload image, rezise to 3 sizes, and option to download https://www.codewithchintan.com/how-to-upload-and-display-image-file-in-pwa-angular-project-using-firebase-cloud-storage-and-angularfire/amp/
 - [ ] Angular Material or other useful UI Framework
 - [ ] Add Testing (unit test and possibly e2e test)
 - [ ] PWA (offline support)
@@ -42,6 +42,7 @@ Furthermore, this project's purpose is also to add to my skills in Angular. TODO
 `npm run deploy:all`
 
 ## Tips for coding
+
 **Scafolding**
 
 Build new lazy loaded feature and add route to main module
