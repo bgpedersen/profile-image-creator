@@ -29,17 +29,20 @@ export class EditImageComponent implements OnInit, AfterViewInit {
   }
 
   drawCanvas() {
-    this.origImg.nativeElement.src = this.dataURL;
+    return new Promise(resolve => {
+      this.origImg.nativeElement.src = this.dataURL;
 
-    const inputImage = new Image();
-    inputImage.onload = () => {
-      this.canvasEdit.nativeElement.width = inputImage.naturalWidth;
-      this.canvasEdit.nativeElement.height = inputImage.naturalHeight;
-      const ctx = this.canvasEdit.nativeElement.getContext('2d');
+      const inputImage = new Image();
+      inputImage.onload = () => {
+        this.canvasEdit.nativeElement.width = inputImage.naturalWidth;
+        this.canvasEdit.nativeElement.height = inputImage.naturalHeight;
+        const ctx = this.canvasEdit.nativeElement.getContext('2d');
 
-      ctx.drawImage(inputImage, 0, 0);
-    };
-    inputImage.src = this.dataURL;
+        ctx.drawImage(inputImage, 0, 0);
+        resolve();
+      };
+      inputImage.src = this.dataURL;
+    });
   }
 
   // https://stackoverflow.com/questions/4276048/html5-canvas-fill-circle-with-image
@@ -90,7 +93,8 @@ export class EditImageComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {}
 
-  ngAfterViewInit(): void {
-    this.drawCanvas();
+  async ngAfterViewInit() {
+    await this.drawCanvas();
+    this.onMakeCircle();
   }
 }

@@ -1,32 +1,29 @@
 <div class="container edit-image">
   <div class="menu">
-    <button class="btn" (click)="onMakeCircle()">
-      Circle
-    </button>
-    <button class="btn" (click)="onDownload()">
-      Download
-    </button>
-    <button (click)="onReset()" class="btn">reset</button>
+    <div class="menu__reset">
+      <img #origImg src="" alt="origImg" class="img" />
+      <button (click)="onReset()" class="btn">Reset</button>
+    </div>
+
     <div>
-      <ul *ngIf="downloadUrls">
+      <button class="btn" (click)="onDownload()">
+        Generate image
+      </button>
+
+      <ul class="downloadUrls" *ngIf="downloadUrls">
         <li *ngFor="let item of downloadUrls">
-          <a download target="_blank" href="{{ item.url | async }}">{{
-            item.title
-          }}</a>
+          <button class="btn">
+            <a download target="_blank" href="{{ item.url | async }}">{{
+              item.title
+            }}</a>
+          </button>
         </li>
       </ul>
     </div>
   </div>
 
   <section class="edit">
-    <div class="container-image">
-      <p class="image-header">Original</p>
-      <img #origImg src="" alt="origImg" class="img" />
-    </div>
-
-    <div class="container-image">
-      <p class="image-header">Edit</p>
-      <canvas #canvasEdit id="imgEdit" class="img"></canvas>
-    </div>
+    <p class="image-header">Edit</p>
+    <canvas #canvasEdit id="imgEdit" class="img"></canvas>
   </section>
 </div>

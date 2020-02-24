@@ -1,4 +1,4 @@
-@import "../../../../styles/abstracts/variables";
+@import '../../../../styles/abstracts/variables';
 
 :host {
   background-color: $primary;
@@ -8,5 +8,5 @@
 .header {
   display: flex;
   align-content: center;
-  padding: 5px;
+  padding: 0 15px;
 }
