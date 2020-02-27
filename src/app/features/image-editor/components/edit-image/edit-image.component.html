@@ -13,7 +13,7 @@
       <ul class="downloadUrls" *ngIf="downloadUrls">
         <li *ngFor="let item of downloadUrls">
           <button class="btn">
-            <a download target="_blank" href="{{ item.url | async }}">{{
+            <a download target="_blank" href="{{ item.url }}">{{
               item.title
             }}</a>
           </button>

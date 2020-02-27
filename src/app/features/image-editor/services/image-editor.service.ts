@@ -4,7 +4,7 @@ import {
   AngularFireStorageReference,
   AngularFireUploadTask
 } from '@angular/fire/storage';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, Subject } from 'rxjs';
 
 class ImageHandler {
   imgDataUrl$ = new BehaviorSubject<string>(null);
@@ -48,11 +48,21 @@ export class ImageEditorService {
             .ref(`/images/thumbs/${id}_600x600.png`)
             .getDownloadURL();
 
-          resolve([
-            { title: '200x200', url: img200$ },
-            { title: '400x400', url: img400$ },
-            { title: '600x600', url: img600$ }
-          ]);
+          forkJoin([img200$, img400$, img600$]).subscribe(
+            res => {
+              console.log(res);
+              const [img200, img400, img600] = res;
+
+              resolve([
+                { title: '200x200', url: img200 },
+                { title: '400x400', url: img400 },
+                { title: '600x600', url: img600 }
+              ]);
+            },
+            err => {
+              throw err;
+            }
+          );
         }, 5000);
       });
     });
