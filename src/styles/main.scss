@@ -1,6 +1,22 @@
-@import "abstracts/mixins";
-@import "abstracts/variables";
+@import '~@angular/material/theming';
+@import 'abstracts/variables';
+@import '~reset-css';
+@import 'base/reset';
 
-@import "base/reset";
+$custom-typography: mat-typography-config(
+  $font-family: 'Montserrat'
+);
+// Override typography for all Angular Material, including mat-base-typography and all components.
+@include angular-material-typography($custom-typography);
 
-@import "themes/dark";
+// Override the typography in the core CSS.
+@include mat-core($custom-typography);
+
+@include angular-material-theme($theme);
+
+// READING
+// https://ajonp.com/courses/angularmaterial/angular-material-theming/
+// https://blog.thoughtram.io/angular/2017/05/23/custom-themes-with-angular-material.html
+// https://material.angular.io/guide/theming-your-components
+// https://medium.com/@tomastrajan/the-complete-guide-to-angular-material-themes-4d165a9d24d1
+// https://medium.com/@aleixsuau/how-to-use-angular-material-2-sass-variables-in-your-components-76ce0203f126

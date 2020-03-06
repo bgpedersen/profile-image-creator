@@ -1,7 +1,54 @@
-/* Coolors Exported Palette - coolors.co/0c0c0c-20212e-082a3e-7ffbd7-44e5e7 */
+@import '~@angular/material/theming';
 
-$primary: #167a8b;
-$primary-light: lighten($primary, 5%);
-$primary-dark: darken($primary, 5%);
-$dark: #141414;
-$light: #e9e9e9;
+$md-custom-primary: (
+  50: #e0f2f1,
+  100: #b3e0db,
+  200: #80cbc4,
+  300: #4db6ac,
+  400: #26a69a,
+  500: #009688,
+  600: #008e80,
+  700: #008375,
+  800: #00796b,
+  900: #006858,
+  A100: #97ffec,
+  A200: #64ffe3,
+  A400: #31ffda,
+  A700: #18ffd5,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
+  )
+);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$theme: mat-light-theme(
+  mat-palette($md-custom-primary),
+  mat-palette($mat-cyan, 800),
+  mat-palette($mat-red)
+);
+$theme: mat-dark-theme(
+  mat-palette($md-custom-primary),
+  mat-palette($mat-cyan, 800),
+  mat-palette($mat-red)
+);
+
+// Variables to access in all project
+$primary: map-get($theme, primary);
+$accent: map-get($theme, accent);
+$warn: map-get($theme, warn);
+
+$color-white: #fff;
+$color-black: #000;

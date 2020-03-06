@@ -1,4 +1,4 @@
-@import "abstracts/_variables";
+@import 'abstracts/variables';
 
 .container {
   height: 100%;
@@ -10,8 +10,8 @@
 
 .file-input {
   padding: 10px;
-  border: 1px solid $dark;
-  color: $dark;
+  border: 1px solid $color-black;
+  color: $color-black;
   font-size: 1.2rem;
   border-radius: 10px;
   cursor: pointer;

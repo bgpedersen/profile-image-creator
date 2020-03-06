@@ -5,27 +5,31 @@
     "ng": "ng",
     "start": "ng serve --open",
     "build": "ng build",
-    "build:prod": "ng build -c production",
+    "build:prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "firebase:deploy": "firebase deploy",
     "firebase:deploy:hosting": "firebase deploy --only hosting",
     "deploy:hosting": "npm run build:prod && npm run firebase:deploy:hosting",
-    "deploy:all": "npm run build:prod && firebase:deploy"
+    "deploy:all": "npm run build:prod && firebase:deploy",
+    "analyze": "ng build --prod --stats-json && webpack-bundle-analyzer dist/profile-image-creator/stats-es2015.json"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~9.0.2",
+    "@angular/cdk": "^9.1.0",
     "@angular/common": "~9.0.2",
     "@angular/compiler": "~9.0.2",
     "@angular/core": "~9.0.2",
     "@angular/fire": "^5.4.2",
     "@angular/forms": "~9.0.2",
+    "@angular/material": "^9.1.0",
     "@angular/platform-browser": "~9.0.2",
     "@angular/platform-browser-dynamic": "~9.0.2",
     "@angular/router": "~9.0.2",
     "firebase": ">= 5.5.7 <7",
+    "reset-css": "^5.0.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
@@ -53,6 +57,7 @@
     "protractor": "^5.4.3",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.7.5"
+    "typescript": "~3.7.5",
+    "webpack-bundle-analyzer": "^3.6.0"
   }
 }

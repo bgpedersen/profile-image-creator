@@ -1,8 +1,8 @@
-@import '../../../../styles/abstracts/variables';
+@import 'abstracts/variables';
 
 :host {
-  background-color: $primary;
-  color: $light;
+  background-color: mat-color($primary, 500);
+  color: $color-white;
 }
 
 .header {

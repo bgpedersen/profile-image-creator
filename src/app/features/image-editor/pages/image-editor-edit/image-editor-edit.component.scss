@@ -1,16 +1,26 @@
-@import "abstracts/variables";
-@import "abstracts/mixins";
+@import 'abstracts/variables';
 
 .container {
   height: 100vh;
-  background-color: $light;
-  color: $light;
+  background-color: $color-white;
+  color: $color-black;
   display: grid;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
-    "header"
-    "edit"
-    "footer";
+    'header'
+    'edit'
+    'footer';
+
+  @media only screen and (min-width: 640px) {
+    .container {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas:
+        'header'
+        'edit'
+        'footer';
+    }
+  }
 }
 
 app-shared-header {
@@ -22,21 +32,10 @@ app-shared-header {
 }
 
 footer {
-  background-color: $primary;
-  color: $light;
+  background-color: mat-color($primary, 500);
+  color: $color-white;
   grid-area: footer;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-@include for-size(tablet-landscape-up) {
-  .container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas:
-      "header"
-      "edit"
-      "footer";
-  }
 }

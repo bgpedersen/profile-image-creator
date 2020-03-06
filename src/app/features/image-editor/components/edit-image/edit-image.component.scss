@@ -1,5 +1,4 @@
 @import 'abstracts/variables';
-@import 'abstracts/mixins';
 
 .img {
   max-width: 100%;
@@ -19,8 +18,8 @@
 .menu {
   grid-area: menu;
   padding: 0 15px;
-  background-color: $primary-light;
-  color: $light;
+  background-color: mat-color($primary, 500);
+  color: $color-white;
   display: flex;
   align-items: center;
   justify-content: space-between;
