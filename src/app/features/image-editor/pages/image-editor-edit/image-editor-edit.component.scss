@@ -2,8 +2,6 @@
 
 .container {
   height: 100vh;
-  background-color: $color-white;
-  color: $color-black;
   display: grid;
   grid-template-rows: 50px 1fr 20px;
   grid-template-areas:
