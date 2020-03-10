@@ -17,14 +17,12 @@ label {
   cursor: pointer;
   background-color: mat-color($accent);
   color: mat-color($accent, default-contrast);
-  box-shadow: 1px 4px 5px -1px rgba(0, 0, 0, 0.29);
   transition: all 0.1s;
 }
 
 label:focus,
 label:hover {
-  background-color: mat-color($accent, default-contrast);
-  color: mat-color($accent);
+  box-shadow: 4px 4px 6px -1px rgba(0, 0, 0, 0.29);
 }
 
 input {

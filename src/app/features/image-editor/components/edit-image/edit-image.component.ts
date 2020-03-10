@@ -18,9 +18,9 @@ import { ImageEditorService } from '../../services/image-editor.service';
 })
 export class EditImageComponent implements OnInit, AfterViewInit {
   @Input() dataURL: string;
-  @ViewChild('origImg') origImg: ElementRef;
   @ViewChild('canvasEdit') canvasEdit: ElementRef;
   downloadUrls: any;
+  loading = false;
 
   constructor(public imageEditorService: ImageEditorService) {}
 
@@ -30,8 +30,6 @@ export class EditImageComponent implements OnInit, AfterViewInit {
 
   drawCanvas() {
     return new Promise(resolve => {
-      this.origImg.nativeElement.src = this.dataURL;
-
       const inputImage = new Image();
       inputImage.onload = () => {
         this.canvasEdit.nativeElement.width = inputImage.naturalWidth;
@@ -86,8 +84,10 @@ export class EditImageComponent implements OnInit, AfterViewInit {
   }
 
   async onDownload() {
+    this.loading = true;
     const blob = await this.canvasToBlob(this.canvasEdit);
     this.downloadUrls = await this.imageEditorService.upload(blob);
+    this.loading = false;
     console.log(this.downloadUrls);
   }
 

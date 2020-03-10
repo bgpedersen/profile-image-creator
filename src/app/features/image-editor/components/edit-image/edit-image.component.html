@@ -1,29 +1,33 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 <div class="container edit-image">
   <div class="menu">
-    <div class="menu__reset">
-      <img #origImg src="" alt="origImg" class="img" />
-      <button (click)="onReset()" class="btn">Reset</button>
-    </div>
+    <button
+      class="btn"
+      (click)="onDownload()"
+      matTooltip="Generate download links"
+      matTooltipPosition="right"
+    >
+      <mat-icon>cloud_download</mat-icon>
+    </button>
 
-    <div>
-      <button class="btn" (click)="onDownload()">
-        Generate image
-      </button>
-
-      <ul class="downloadUrls" *ngIf="downloadUrls">
-        <li *ngFor="let item of downloadUrls">
-          <button class="btn">
-            <a download target="_blank" href="{{ item.url }}">{{
-              item.title
-            }}</a>
-          </button>
-        </li>
-      </ul>
-    </div>
+    <button
+      (click)="onReset()"
+      class="btn"
+      matTooltip="Clear image"
+      matTooltipPosition="right"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
   </div>
 
   <section class="edit">
-    <p class="image-header">Edit</p>
     <canvas #canvasEdit id="imgEdit" class="img"></canvas>
   </section>
 </div>
+
+<!-- 
+<ul class="downloadUrls">
+  <li *ngFor="let item of downloadUrls">
+    <a download href="{{ item.url }}">{{ item.title }}</a>
+  </li>
+</ul> -->
