@@ -8,13 +8,28 @@
   flex-direction: column;
 }
 
-.file-input {
-  padding: 10px;
-  border: 1px solid $color-black;
-  color: $color-black;
+label {
+  padding: 15px;
   font-size: 1.2rem;
   border-radius: 10px;
   cursor: pointer;
-  background-color: #fff;
+  background-color: mat-color($accent);
+  color: mat-color($accent, default-contrast);
   box-shadow: 1px 4px 5px -1px rgba(0, 0, 0, 0.29);
+  transition: all 0.1s;
+}
+
+label:focus,
+label:hover {
+  background-color: mat-color($accent, default-contrast);
+  color: mat-color($accent);
+}
+
+input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }

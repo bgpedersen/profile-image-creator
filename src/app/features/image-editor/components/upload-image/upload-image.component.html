@@ -1,10 +1,10 @@
 <div class="upload-image container">
-  <h2>Select image (.png/.jpg)</h2>
+  <label for="fileinputElm">Select image (.png/.jpg)</label>
+
   <input
     (change)="onUpload($event)"
     type="file"
     accept=".png,.jpg"
-    class="file-input"
     id="fileinputElm"
   />
 </div>

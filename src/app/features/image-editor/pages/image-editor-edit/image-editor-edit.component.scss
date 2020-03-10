@@ -5,21 +5,13 @@
   background-color: $color-white;
   color: $color-black;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 50px 1fr 20px;
   grid-template-areas:
     'header'
     'edit'
     'footer';
 
   @media only screen and (min-width: 640px) {
-    .container {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto 1fr auto;
-      grid-template-areas:
-        'header'
-        'edit'
-        'footer';
-    }
   }
 }
 
@@ -32,10 +24,5 @@ app-shared-header {
 }
 
 footer {
-  background-color: mat-color($primary, 500);
-  color: $color-white;
   grid-area: footer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
