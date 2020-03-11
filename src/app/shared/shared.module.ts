@@ -24,6 +24,7 @@ import { SharedHeaderComponent } from './components/shared-header/shared-header.
   exports: [
     SharedHeaderComponent,
     SharedFooterComponent,
+    CommonModule,
     MatIconModule,
     MatTooltipModule,
     MatProgressBarModule,

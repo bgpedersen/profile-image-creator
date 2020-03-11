@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -17,7 +16,7 @@ import { ImageEditorEditComponent } from './pages/image-editor-edit/image-editor
     ImageEditorEditComponent,
     BottomSheetDownloadurlsComponent
   ],
-  imports: [CommonModule, SharedModule, ImageEditorRoutingModule],
+  imports: [SharedModule, ImageEditorRoutingModule],
   entryComponents: [BottomSheetDownloadurlsComponent]
 })
 export class ImageEditorModule {}
