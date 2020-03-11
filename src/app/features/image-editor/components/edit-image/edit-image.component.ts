@@ -9,6 +9,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 
 import { DownloadUrl } from '../../models/DownloadUrls.model';
@@ -32,7 +33,8 @@ export class EditImageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     public imageEditorService: ImageEditorService,
-    private matBottomSheet: MatBottomSheet
+    private matBottomSheet: MatBottomSheet,
+    private matSnackBar: MatSnackBar
   ) {}
 
   onReset() {
@@ -106,7 +108,26 @@ export class EditImageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.loading = true;
     const blob = await this.imageEditorService.canvasToBlob(this.canvasEdit);
-    await this.imageEditorService.upload(blob);
+    try {
+      await this.imageEditorService.upload(blob);
+    } catch (feedback) {
+      console.error(feedback);
+
+      // If error contains Id, make retry possible
+      if (feedback.id) {
+        // Simple message with an action.
+        const snackBarRef = this.matSnackBar.open(
+          'Download links not generated yet',
+          'Retry'
+        );
+
+        snackBarRef.onAction().subscribe(() => {
+          console.log('The snack-bar action was triggered!');
+          this.imageEditorService.retrieveDownloadUrls(feedback.id);
+        });
+      }
+    }
+
     this.loading = false;
   }
 
