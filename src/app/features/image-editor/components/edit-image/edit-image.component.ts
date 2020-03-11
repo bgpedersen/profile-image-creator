@@ -4,11 +4,18 @@ import {
   Component,
   ElementRef,
   Input,
+  OnDestroy,
   OnInit,
   ViewChild
 } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { Subscription } from 'rxjs';
 
+import { DownloadUrl } from '../../models/DownloadUrls.model';
 import { ImageEditorService } from '../../services/image-editor.service';
+import {
+  BottomSheetDownloadurlsComponent
+} from '../bottom-sheet-downloadurls/bottom-sheet-downloadurls.component';
 
 @Component({
   selector: 'app-edit-image',
@@ -16,13 +23,17 @@ import { ImageEditorService } from '../../services/image-editor.service';
   styleUrls: ['./edit-image.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class EditImageComponent implements OnInit, AfterViewInit {
+export class EditImageComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() dataURL: string;
   @ViewChild('canvasEdit') canvasEdit: ElementRef;
-  downloadUrls: any;
   loading = false;
+  downloadUrls: DownloadUrl[] = [];
+  subs: Subscription[] = [];
 
-  constructor(public imageEditorService: ImageEditorService) {}
+  constructor(
+    public imageEditorService: ImageEditorService,
+    private matBottomSheet: MatBottomSheet
+  ) {}
 
   onReset() {
     this.imageEditorService.resetDataUrl();
@@ -74,24 +85,47 @@ export class EditImageComponent implements OnInit, AfterViewInit {
     inputImage.src = this.dataURL;
   }
 
-  canvasToBlob(canvas, type = 'type/png') {
-    return new Promise<Blob>((resolve, reject) => {
-      const nativeElm = canvas.nativeElement;
-      return nativeElm.toBlob(blob => {
-        return resolve(blob);
-      }, type);
+  openBottomSheet(downloadUrls: DownloadUrl[]) {
+    const bottomSheetRef = this.matBottomSheet.open(
+      BottomSheetDownloadurlsComponent,
+      {
+        data: downloadUrls
+      }
+    );
+
+    bottomSheetRef.afterDismissed().subscribe(() => {
+      console.log('Bottom sheet has been dismissed.');
     });
   }
 
   async onDownload() {
+    // Already generated thumbnails, dont upload again
+    if (this.downloadUrls.length) {
+      this.openBottomSheet(this.downloadUrls);
+      return;
+    }
     this.loading = true;
-    const blob = await this.canvasToBlob(this.canvasEdit);
-    this.downloadUrls = await this.imageEditorService.upload(blob);
+    const blob = await this.imageEditorService.canvasToBlob(this.canvasEdit);
+    await this.imageEditorService.upload(blob);
     this.loading = false;
-    console.log(this.downloadUrls);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.subs.push(
+      this.imageEditorService.imageHandler.downloadUrls$.subscribe(
+        downloadUrls => {
+          this.downloadUrls = downloadUrls;
+          if (downloadUrls?.length) {
+            this.openBottomSheet(downloadUrls);
+          }
+        }
+      )
+    );
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach(sub => sub.unsubscribe());
+  }
 
   async ngAfterViewInit() {
     await this.drawCanvas();

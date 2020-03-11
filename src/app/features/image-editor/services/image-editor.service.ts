@@ -6,11 +6,13 @@ import {
 } from '@angular/fire/storage';
 import { BehaviorSubject, forkJoin, Observable, Subject } from 'rxjs';
 
+import { DownloadUrl } from '../models/DownloadUrls.model';
+
 class ImageHandler {
   imgDataUrl$ = new BehaviorSubject<string>(null);
   uploadProgress$: Observable<number>;
   uploadState$: Observable<string>;
-  downloadUrls$ = new Subject<any>();
+  downloadUrls$ = new Subject<DownloadUrl[]>();
   task: AngularFireUploadTask;
   refDownloadURL$: Observable<any>;
   constructor() {}
@@ -26,7 +28,7 @@ export class ImageEditorService {
   constructor(private afStorage: AngularFireStorage) {}
 
   upload(blob: Blob) {
-    return new Promise<any>((resolve, reject) => {
+    return new Promise<DownloadUrl[]>((resolve, reject) => {
       const randomId = Math.random()
         .toString(36)
         .substring(2);
@@ -53,11 +55,15 @@ export class ImageEditorService {
               console.log(res);
               const [img200, img400, img600] = res;
 
-              resolve([
+              const downloadUrls = [
                 { title: '200x200', url: img200 },
                 { title: '400x400', url: img400 },
                 { title: '600x600', url: img600 }
-              ]);
+              ];
+
+              this.imageHandler.downloadUrls$.next(downloadUrls);
+
+              resolve(downloadUrls);
             },
             err => {
               throw err;
@@ -65,6 +71,15 @@ export class ImageEditorService {
           );
         }, 5000);
       });
+    });
+  }
+
+  canvasToBlob(canvas, type = 'type/png') {
+    return new Promise<Blob>((resolve, reject) => {
+      const nativeElm = canvas.nativeElement;
+      return nativeElm.toBlob(blob => {
+        return resolve(blob);
+      }, type);
     });
   }
 

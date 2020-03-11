@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -13,14 +15,18 @@ import { SharedHeaderComponent } from './components/shared-header/shared-header.
     CommonModule,
     MatIconModule,
     MatTooltipModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatBottomSheetModule,
+    MatDividerModule
   ],
   exports: [
     SharedHeaderComponent,
     SharedFooterComponent,
     MatIconModule,
     MatTooltipModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatBottomSheetModule,
+    MatDividerModule
   ]
 })
 export class SharedModule {}

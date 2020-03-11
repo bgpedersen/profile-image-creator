@@ -4,6 +4,8 @@
     <button
       class="btn"
       (click)="onDownload()"
+      [disabled]="loading"
+      [ngClass]="{ disabled: loading }"
       matTooltip="Generate download links"
       matTooltipPosition="right"
     >
@@ -24,10 +26,3 @@
     <canvas #canvasEdit id="imgEdit" class="img"></canvas>
   </section>
 </div>
-
-<!-- 
-<ul class="downloadUrls">
-  <li *ngFor="let item of downloadUrls">
-    <a download href="{{ item.url }}">{{ item.title }}</a>
-  </li>
-</ul> -->

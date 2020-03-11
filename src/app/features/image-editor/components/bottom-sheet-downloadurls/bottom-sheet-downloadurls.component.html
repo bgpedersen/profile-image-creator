@@ -1,0 +1,8 @@
+<ul class="downloadUrls">
+  <ng-container *ngFor="let item of data; let last = last">
+    <li>
+      <a download target="_blank" href="{{ item.url }}">{{ item.title }}</a>
+    </li>
+    <mat-divider *ngIf="!last"></mat-divider>
+  </ng-container>
+</ul>
