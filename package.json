@@ -9,10 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "firebase:deploy": "firebase deploy",
-    "firebase:deploy:hosting": "firebase deploy --only hosting",
-    "deploy:hosting": "npm run build:prod && npm run firebase:deploy:hosting",
-    "deploy:all": "npm run build:prod && firebase:deploy",
+    "deploy:hosting": "npm run build:prod && firebase deploy --only hosting",
+    "deploy:all": "npm run build:prod && firebase deploy",
     "analyze": "ng build --prod --stats-json && webpack-bundle-analyzer dist/profile-image-creator/stats-es2015.json"
   },
   "private": true,

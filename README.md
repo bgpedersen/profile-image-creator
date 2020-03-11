@@ -13,16 +13,13 @@ Furthermore, this project's purpose is also to add to my skills in Angular. TODO
 - [x] Crop image to circle using canvas techiques
 - [x] Setup firebase storage rules / authentication to allow upload image and download resized images
 - [x] Upload image, rezise to 3 sizes, and option to download https://www.codewithchintan.com/how-to-upload-and-display-image-file-in-pwa-angular-project-using-firebase-cloud-storage-and-angularfire/amp/
-- [ ] Make loading while waiting 5 seconds to generate thumbnails and make retry button
-- [ ] Remove option to keep uploading same image
+- [x] Make loading while waiting few seconds to generate thumbnails and make retry button in toast
+- [x] Remove option to keep uploading same image, but use already uploaded
 - [ ] Make firebsae function to cleanup thumbnail folder everyday
-- [ ] Be able to download the image when clicking the link, not to open in new page
-- [ ] Angular Material or other useful UI Framework
+- [x] (failed) Be able to download the image when clicking the link, not to open in new page
+- [x] Angular Material or other useful UI Framework
 - [ ] Add Testing (unit test and possibly e2e test)
-- [ ] PWA (offline support)
-- [ ] Authentication
-- [ ] Guards
-- [ ] Save images to firestore for logged in user
+- [ ] Add NgRX state management
 - [ ] Setup CI/CD with GitHub Actions and workflow, so when to push/merge to GitHub Master branch -> automatically test and deploy to firebase
 
 ## Tools
