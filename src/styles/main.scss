@@ -2,6 +2,7 @@
 @import 'abstracts/variables';
 @import '~reset-css';
 @import 'base/reset';
+@import 'base/fonts';
 
 $custom-typography: mat-typography-config(
   $font-family: 'Montserrat'
