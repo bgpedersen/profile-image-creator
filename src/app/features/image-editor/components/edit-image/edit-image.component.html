@@ -1,6 +1,15 @@
 <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 <div class="container edit-image">
-  <div class="menu">
+  <div class="top-menu">
+    <button class="btn" matTooltip="Rotate left" (click)="onRotate('left')">
+      <mat-icon>rotate_left</mat-icon>
+    </button>
+
+    <button class="btn" matTooltip="Rotate right" (click)="onRotate('right')">
+      <mat-icon>rotate_right</mat-icon>
+    </button>
+  </div>
+  <div class="side-menu">
     <button
       class="btn"
       (click)="onDownload()"

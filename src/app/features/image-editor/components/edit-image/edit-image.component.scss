@@ -9,17 +9,33 @@
   height: 100%;
   display: grid;
   grid-template-columns: 50px 1fr;
-  grid-template-areas: 'menu edit';
+  grid-template-rows: 50px 1fr;
+  grid-template-areas:
+    'side-menu top-menu'
+    'side-menu edit';
 }
 
-.menu {
-  grid-area: menu;
+.top-menu {
+  grid-area: top-menu;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .btn {
+    color: mat-color($accent);
+  }
+}
+
+.side-menu {
+  grid-area: side-menu;
   background-color: mat-color($primary);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   position: relative;
+  .btn {
+    color: $color-white;
+  }
 }
 .edit {
   grid-area: edit;
@@ -32,7 +48,6 @@
 .btn {
   padding: 5px;
   border: none;
-  color: $color-white;
   cursor: pointer;
   font-size: 1rem;
   background-color: inherit;

@@ -37,6 +37,40 @@ export class EditImageComponent implements OnInit, AfterViewInit, OnDestroy {
     private matSnackBar: MatSnackBar
   ) {}
 
+  // no need to use save and restore between calls as it sets the transform rather
+  // than multiply it like ctx.rotate ctx.translate ctx.scale and ctx.transform
+  // Also combining the scale and origin into the one call makes it quicker
+  // x,y position of image center
+  // scale scale of image
+  // rotation in radians.
+  // function drawImage(image, x, y, scale, rotation){
+  //   ctx.setTransform(scale, 0, 0, scale, x, y); // sets scale and origin
+  //   ctx.rotate(rotation);
+  //   ctx.drawImage(image, -image.width / 2, -image.height / 2);
+  // }
+
+  // drawImage(image, canvas.width / 2, canvas.height / 2, 1, - Math.PI / 2);
+
+  onRotate(direction: 'left' | 'right') {
+    const degrees = 90;
+    const canvas = this.canvasEdit.nativeElement;
+
+    const image = new Image();
+    image.onload = () => {
+      this.canvasEdit.nativeElement.width = image.naturalWidth;
+      this.canvasEdit.nativeElement.height = image.naturalHeight;
+      const ctx = this.canvasEdit.nativeElement.getContext('2d');
+
+      // const ctx = canvas.getContext('2d');
+      ctx.setTransform(1, 0, 0, 1, canvas.width / 2, canvas.height / 2);
+      ctx.rotate(-Math.PI / 2);
+      ctx.drawImage(image, -canvas.width / 2, -canvas.height / 2);
+    };
+
+    image.src = canvas.toDataURL();
+    // image.src = this.dataURL;
+  }
+
   onReset() {
     this.imageEditorService.resetDataUrl();
   }
