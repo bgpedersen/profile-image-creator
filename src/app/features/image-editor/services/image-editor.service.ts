@@ -115,68 +115,74 @@ export class ImageEditorService {
   }
 
   // https://stackoverflow.com/questions/4276048/html5-canvas-fill-circle-with-image
-  canvasCircle(canvas: HTMLCanvasElement) {
-    return new Promise((resolve, reject) => {
-      const ctx = canvas.getContext('2d');
+  canvasCircle(imageElm: HTMLImageElement, ctx: CanvasRenderingContext2D) {
+    ctx.save();
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.beginPath();
+    const centerX = ctx.canvas.width / 2;
+    const centerY = ctx.canvas.height / 2;
+    const radius = centerX < centerY ? centerX : centerY;
 
+    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, true);
+    ctx.closePath();
+    ctx.clip();
+
+    ctx.drawImage(imageElm, 0, 0);
+
+    ctx.beginPath();
+    ctx.arc(0, 0, radius, 0, 2 * Math.PI, true);
+    ctx.clip();
+    ctx.closePath();
+    ctx.restore();
+    imageElm.src = ctx.canvas.toDataURL();
+  }
+
+  canvasRotate(
+    imageElm: HTMLImageElement,
+    ctx: CanvasRenderingContext2D,
+    degrees = 90
+  ) {
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, ctx.canvas.width / 2, ctx.canvas.height / 2);
+    ctx.rotate((degrees * Math.PI) / 180);
+    ctx.drawImage(imageElm, -ctx.canvas.width / 2, -ctx.canvas.height / 2);
+    ctx.restore();
+    imageElm.src = ctx.canvas.toDataURL();
+  }
+
+  canvasScale(
+    imageElm: HTMLImageElement,
+    ctx: CanvasRenderingContext2D,
+    scale = 1
+  ) {
+    console.log(scale);
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.save();
+    ctx.scale(scale, scale);
+    ctx.drawImage(imageElm, 0, 0);
+    ctx.restore();
+    imageElm.src = ctx.canvas.toDataURL();
+  }
+
+  createImageFromImageDataUrl(imageDataURL: string): Promise<HTMLImageElement> {
+    return new Promise(resolve => {
       const image = new Image();
       image.onload = () => {
-        ctx.save();
-        ctx.beginPath();
-        canvas.width = image.naturalWidth;
-        canvas.height = image.naturalHeight;
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-        const radius = centerX < centerY ? centerX : centerY;
-
-        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, true);
-        ctx.closePath();
-        ctx.clip();
-
-        ctx.drawImage(image, 0, 0);
-
-        ctx.beginPath();
-        ctx.arc(0, 0, radius, 0, 2 * Math.PI, true);
-        ctx.clip();
-        ctx.closePath();
-        ctx.restore();
-
-        resolve();
+        resolve(image);
       };
-
-      image.src = canvas.toDataURL();
+      image.src = imageDataURL;
     });
   }
 
-  canvasRotate(canvas: HTMLCanvasElement, degrees = 90) {
-    const image = new Image();
-    image.onload = () => {
-      canvas.width = image.naturalWidth;
-      canvas.height = image.naturalHeight;
-      const ctx = canvas.getContext('2d');
+  canvasDraw(
+    imageElm: HTMLImageElement,
+    canvas: HTMLCanvasElement
+  ): CanvasRenderingContext2D {
+    canvas.width = imageElm.naturalWidth;
+    canvas.height = imageElm.naturalHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(imageElm, 0, 0);
 
-      // const ctx = canvas.getContext('2d');
-      ctx.setTransform(1, 0, 0, 1, canvas.width / 2, canvas.height / 2);
-      ctx.rotate((degrees * Math.PI) / 180);
-      ctx.drawImage(image, -canvas.width / 2, -canvas.height / 2);
-    };
-
-    image.src = canvas.toDataURL();
-  }
-
-  canvasDraw(imageDataURL: string, canvas: HTMLCanvasElement) {
-    return new Promise(resolve => {
-      const inputImage = new Image();
-      inputImage.onload = () => {
-        canvas.width = inputImage.width;
-        canvas.height = inputImage.height;
-
-        const ctx = canvas.getContext('2d');
-
-        ctx.drawImage(inputImage, 0, 0);
-        resolve();
-      };
-      inputImage.src = imageDataURL;
-    });
+    return ctx;
   }
 }

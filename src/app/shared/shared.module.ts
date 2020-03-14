@@ -4,6 +4,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -18,7 +19,8 @@ import { SharedHeaderComponent } from './components/shared-header/shared-header.
     MatProgressBarModule,
     MatBottomSheetModule,
     MatDividerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSliderModule
   ],
   exports: [
     SharedHeaderComponent,
@@ -28,7 +30,7 @@ import { SharedHeaderComponent } from './components/shared-header/shared-header.
     MatProgressBarModule,
     MatBottomSheetModule,
     MatDividerModule,
-    MatSnackBarModule
+    MatSliderModule
   ]
 })
 export class SharedModule {}

@@ -10,7 +10,8 @@ import {
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subscription } from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
+import { debounceTime, tap } from 'rxjs/operators';
 
 import { DownloadUrl } from '../../models/DownloadUrls.model';
 import { ImageEditorService } from '../../services/image-editor.service';
@@ -27,9 +28,12 @@ import {
 export class EditImageComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() imageDataURL: string;
   @ViewChild('canvasElm') canvasElm: ElementRef;
+  @ViewChild('slider') sliderElm: ElementRef;
   loading = false;
   downloadUrls: DownloadUrl[] = [];
   subs: Subscription[] = [];
+  imageElm: HTMLImageElement;
+  ctx: CanvasRenderingContext2D;
 
   constructor(
     public imageEditorService: ImageEditorService,
@@ -38,23 +42,27 @@ export class EditImageComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   onRotate(degrees: number) {
-    this.imageEditorService.canvasRotate(this.canvasElm.nativeElement, degrees);
+    this.imageEditorService.canvasRotate(
+      this.imageElm,
+      this.ctx,
+      // this.canvasElm.nativeElement,
+      degrees
+    );
   }
 
   onMakeCircle() {
-    this.imageEditorService.canvasCircle(this.canvasElm.nativeElement);
+    this.imageEditorService.canvasCircle(this.imageElm, this.ctx);
   }
 
   onReset() {
-    this.drawCanvas(this.imageDataURL, this.canvasElm.nativeElement);
+    this.imageEditorService.canvasDraw(
+      this.imageElm,
+      this.canvasElm.nativeElement
+    );
   }
 
   onDelete() {
     this.imageEditorService.resetDataUrl();
-  }
-
-  drawCanvas(imageDataURL: string, canvas: HTMLCanvasElement) {
-    this.imageEditorService.canvasDraw(imageDataURL, canvas);
   }
 
   openBottomSheet(downloadUrls: DownloadUrl[]) {
@@ -120,7 +128,25 @@ export class EditImageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subs.forEach(sub => sub.unsubscribe());
   }
 
-  ngAfterViewInit() {
-    this.drawCanvas(this.imageDataURL, this.canvasElm.nativeElement);
+  async ngAfterViewInit() {
+    this.imageElm = await this.imageEditorService.createImageFromImageDataUrl(
+      this.imageDataURL
+    );
+    this.ctx = this.imageEditorService.canvasDraw(
+      this.imageElm,
+      this.canvasElm.nativeElement
+    );
+
+    this.subs.push(
+      fromEvent(this.sliderElm.nativeElement, 'input')
+        .pipe(
+          debounceTime(150),
+          tap(text => {
+            console.log(text);
+            console.log(this.sliderElm.nativeElement.value);
+          })
+        )
+        .subscribe()
+    );
   }
 }
