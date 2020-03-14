@@ -1,10 +1,5 @@
 @import 'abstracts/variables';
 
-.img {
-  max-width: 100%;
-  max-height: 100%;
-}
-
 .container {
   height: 100%;
   display: grid;
@@ -31,7 +26,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   position: relative;
   .btn {
     color: $color-white;
@@ -43,6 +37,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: auto;
+  canvas {
+    max-width: 100%;
+    max-height: 400px;
+    @media screen and (max-height: 600px) {
+      max-height: 200px;
+    }
+    @media screen and (max-height: 300px) {
+      max-height: 100px;
+    }
+    @media screen and (max-height: 200px) {
+      max-height: 50px;
+    }
+  }
 }
 
 .btn {

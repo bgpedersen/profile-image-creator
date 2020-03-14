@@ -7,11 +7,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { SharedFooterComponent } from './components/shared-footer/shared-footer.component';
 import { SharedHeaderComponent } from './components/shared-header/shared-header.component';
 
 @NgModule({
-  declarations: [SharedHeaderComponent, SharedFooterComponent],
+  declarations: [SharedHeaderComponent],
   imports: [
     CommonModule,
     MatIconModule,
@@ -23,7 +22,6 @@ import { SharedHeaderComponent } from './components/shared-header/shared-header.
   ],
   exports: [
     SharedHeaderComponent,
-    SharedFooterComponent,
     CommonModule,
     MatIconModule,
     MatTooltipModule,

@@ -1,8 +1,8 @@
-<div class="upload-image container">
+<div class="file-input container">
   <label for="fileinputElm">Select image (.png/.jpg)</label>
 
   <input
-    (change)="onUpload($event)"
+    (change)="onFileInput($event)"
     type="file"
     accept=".png,.jpg"
     id="fileinputElm"

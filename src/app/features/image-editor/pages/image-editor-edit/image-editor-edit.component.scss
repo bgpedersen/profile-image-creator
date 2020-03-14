@@ -3,11 +3,10 @@
 .container {
   height: 100vh;
   display: grid;
-  grid-template-rows: 50px 1fr 20px;
+  grid-template-rows: 50px 1fr;
   grid-template-areas:
     'header'
-    'edit'
-    'footer';
+    'edit';
 }
 
 app-shared-header {
@@ -16,8 +15,4 @@ app-shared-header {
 
 .edit {
   grid-area: edit;
-}
-
-footer {
-  grid-area: footer;
 }

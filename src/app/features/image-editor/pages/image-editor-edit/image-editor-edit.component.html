@@ -4,18 +4,14 @@
   <section class="edit">
     <app-edit-image
       *ngIf="
-        imageEditorService.imageHandler.imgDataUrl$ | async as dataURL;
+        imageEditorService.imageHandler.imageDataURL$ | async as imageDataURL;
         else uploadImg
       "
-      [dataURL]="dataURL"
+      [imageDataURL]="imageDataURL"
     ></app-edit-image>
 
     <ng-template #uploadImg>
-      <app-upload-image></app-upload-image>
+      <app-file-input></app-file-input>
     </ng-template>
   </section>
-
-  <footer>
-    <app-shared-footer></app-shared-footer>
-  </footer>
 </div>

@@ -1,12 +1,20 @@
 <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 <div class="container edit-image">
   <div class="top-menu">
-    <button class="btn" matTooltip="Rotate left" (click)="onRotate('left')">
+    <button class="btn" matTooltip="Crop to circle" (click)="onMakeCircle()">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+
+    <button class="btn" matTooltip="Rotate left" (click)="onRotate(-90)">
       <mat-icon>rotate_left</mat-icon>
     </button>
 
-    <button class="btn" matTooltip="Rotate right" (click)="onRotate('right')">
+    <button class="btn" matTooltip="Rotate right" (click)="onRotate(90)">
       <mat-icon>rotate_right</mat-icon>
+    </button>
+
+    <button class="btn" matTooltip="Reset" (click)="onReset()">
+      <mat-icon>undo</mat-icon>
     </button>
   </div>
   <div class="side-menu">
@@ -22,9 +30,9 @@
     </button>
 
     <button
-      (click)="onReset()"
+      (click)="onDelete()"
       class="btn"
-      matTooltip="Clear image"
+      matTooltip="Delete image"
       matTooltipPosition="right"
     >
       <mat-icon>delete</mat-icon>
@@ -32,6 +40,6 @@
   </div>
 
   <section class="edit">
-    <canvas #canvasEdit id="imgEdit" class="img"></canvas>
+    <canvas #canvasElm id="imgEdit"></canvas>
   </section>
 </div>
