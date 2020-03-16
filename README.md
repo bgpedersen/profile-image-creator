@@ -16,11 +16,11 @@ Furthermore, this project's purpose is also to add to my skills in Angular. TODO
 - [x] Make loading while waiting few seconds to generate thumbnails and make retry button in toast
 - [x] Remove option to keep uploading same image, but use already uploaded
 - [x] (failed) Be able to download the image when clicking the link, not to open in new page
-- [ ] Be able to rotate image
+- [x] (failed - whole program should have been written differently, not changing the image on the canvas, but changing the canvas and in the end clipping the image to fit the modified canvas) Be able to rotate image
 - [ ] Make firebase function to cleanup thumbnail folder everyday
 - [ ] Add Testing (unit test and possibly e2e test)
 - [ ] Add NgRX state management
-- [ ] Setup CI/CD with GitHub Actions and workflow, so when to push/merge to GitHub Master branch -> automatically test and deploy to firebase
+- [ ] Setup CI/CD with GitHub Actions and workflow, so when to push/merge to GitHub Master branch -> automatically test and deploy to firebase. Setup prettier check.
 
 ## Tools
 
