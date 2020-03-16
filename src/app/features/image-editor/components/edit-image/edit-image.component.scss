@@ -34,6 +34,7 @@
 
 .edit {
   grid-area: edit;
+  background-color: mat-color($primary, 'darker');
   padding: 5px 15px;
   display: flex;
   justify-content: center;
