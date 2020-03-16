@@ -1,45 +1,26 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFireStorage,
-  AngularFireStorageReference,
-  AngularFireUploadTask
-} from '@angular/fire/storage';
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
+import { forkJoin } from 'rxjs';
 
 import { DownloadUrl } from '../models/DownloadUrls.model';
-
-class ImageHandler {
-  imageDataURL$ = new BehaviorSubject<string>(null);
-  uploadProgress$: Observable<number>;
-  uploadState$: Observable<string>;
-  task: AngularFireUploadTask;
-  refDownloadURL$: Observable<any>;
-  constructor() {}
-}
+import { ImageHandler } from '../models/ImageHandler.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageEditorService {
   public imageHandler = new ImageHandler();
-  ref: AngularFireStorageReference;
+  public ref: AngularFireStorageReference;
 
   constructor(private afStorage: AngularFireStorage) {}
 
-  retrieveDownloadUrls(id): Promise<DownloadUrl[]> {
+  public retrieveDownloadUrls(id): Promise<DownloadUrl[]> {
     return new Promise((resolve, reject) => {
-      const img200$ = this.afStorage
-        .ref(`/images/thumbs/${id}_200x200.png`)
-        .getDownloadURL();
-      const img400$ = this.afStorage
-        .ref(`/images/thumbs/${id}_400x400.png`)
-        .getDownloadURL();
-      const img600$ = this.afStorage
-        .ref(`/images/thumbs/${id}_600x600.png`)
-        .getDownloadURL();
+      const img200$ = this.afStorage.ref(`/images/thumbs/${id}_200x200.png`).getDownloadURL();
+      const img400$ = this.afStorage.ref(`/images/thumbs/${id}_400x400.png`).getDownloadURL();
+      const img600$ = this.afStorage.ref(`/images/thumbs/${id}_600x600.png`).getDownloadURL();
 
       forkJoin([img200$, img400$, img600$]).subscribe(res => {
-        console.log(res);
         const [img200, img400, img600] = res;
 
         const downloadUrls = [
@@ -52,15 +33,11 @@ export class ImageEditorService {
     });
   }
 
-  retryRetrieveDownloadUrls(id) {
-    return this.retry<DownloadUrl[]>(
-      () => this.retrieveDownloadUrls(id),
-      5,
-      2000
-    );
+  public retryRetrieveDownloadUrls(id) {
+    return this.retry<DownloadUrl[]>(() => this.retrieveDownloadUrls(id), 5, 2000);
   }
 
-  retry = <T>(fn, times, delay): Promise<T> => {
+  public retry = <T>(fn, times, delay): Promise<T> => {
     return new Promise((resolve, reject) => {
       let error;
       const attempt = () => {
@@ -72,9 +49,6 @@ export class ImageEditorService {
             .catch(e => {
               times--;
               error = e;
-              console.error(
-                `${times} attempts left. Error: ${JSON.stringify(error)}`
-              );
               setTimeout(() => {
                 attempt();
               }, delay);
@@ -85,7 +59,7 @@ export class ImageEditorService {
     });
   };
 
-  upload(blob: Blob): Promise<string> {
+  public upload(blob: Blob): Promise<string> {
     return new Promise((resolve, reject) => {
       const randomId = Math.random()
         .toString(36)
@@ -102,7 +76,7 @@ export class ImageEditorService {
     });
   }
 
-  canvasToBlob(canvas: HTMLCanvasElement, type = 'type/png') {
+  public canvasToBlob(canvas: HTMLCanvasElement, type = 'type/png') {
     return new Promise<Blob>((resolve, reject) => {
       return canvas.toBlob(blob => {
         return resolve(blob);
@@ -110,11 +84,11 @@ export class ImageEditorService {
     });
   }
 
-  resetDataUrl() {
+  public resetDataUrl() {
     this.imageHandler.imageDataURL$.next(null);
   }
 
-  getImageDataURLFromFileEvent(fileinputElm: Event): Promise<string> {
+  public getImageDataURLFromFileEvent(fileinputElm: Event): Promise<string> {
     return new Promise((resolve, reject) => {
       try {
         const file = (fileinputElm.target as HTMLInputElement).files[0];
@@ -125,14 +99,13 @@ export class ImageEditorService {
           resolve(src);
         };
       } catch (e) {
-        console.error('Error reading fileinput: ', e);
         reject(null);
       }
     });
   }
 
   // https://stackoverflow.com/questions/4276048/html5-canvas-fill-circle-with-image
-  canvasCircle(imageElm: HTMLImageElement, ctx: CanvasRenderingContext2D) {
+  public canvasCircle(imageElm: HTMLImageElement, ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.save();
     ctx.beginPath();
@@ -154,11 +127,7 @@ export class ImageEditorService {
     this.canvasSaveImage(imageElm, ctx);
   }
 
-  canvasRotate(
-    imageElm: HTMLImageElement,
-    ctx: CanvasRenderingContext2D,
-    degrees = 90
-  ) {
+  public canvasRotate(imageElm: HTMLImageElement, ctx: CanvasRenderingContext2D, degrees = 90) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.save();
     ctx.setTransform(1, 0, 0, 1, ctx.canvas.width / 2, ctx.canvas.height / 2);
@@ -180,11 +149,11 @@ export class ImageEditorService {
   //   ctx.restore();
   // }
 
-  canvasSaveImage(imageElm: HTMLImageElement, ctx: CanvasRenderingContext2D) {
+  public canvasSaveImage(imageElm: HTMLImageElement, ctx: CanvasRenderingContext2D) {
     imageElm.src = ctx.canvas.toDataURL();
   }
 
-  createImageFromImageDataUrl(imageDataURL: string): Promise<HTMLImageElement> {
+  public createImageFromImageDataUrl(imageDataURL: string): Promise<HTMLImageElement> {
     return new Promise(resolve => {
       const image = new Image();
       image.onload = () => {
@@ -194,10 +163,7 @@ export class ImageEditorService {
     });
   }
 
-  canvasDraw(
-    imageElm: HTMLImageElement,
-    canvas: HTMLCanvasElement
-  ): CanvasRenderingContext2D {
+  public canvasDraw(imageElm: HTMLImageElement, canvas: HTMLCanvasElement): CanvasRenderingContext2D {
     canvas.width = imageElm.naturalWidth;
     canvas.height = imageElm.naturalHeight;
     const ctx = canvas.getContext('2d');
