@@ -65,14 +65,18 @@ export class ImageEditorService {
         .toString(36)
         .substring(2);
 
-      this.ref = this.afStorage.ref(`/images/${randomId}.png`);
-      this.imageHandler.task = this.ref.put(blob);
+      try {
+        this.ref = this.afStorage.ref(`/images/${randomId}.png`);
+        this.imageHandler.task = this.ref.put(blob);
 
-      this.imageHandler.task.then(async result => {
-        const id = result.metadata.name.split('.')[0];
+        this.imageHandler.task.then(async result => {
+          const id = result.metadata.name.split('.')[0];
 
-        resolve(id);
-      });
+          resolve(id);
+        });
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 
