@@ -4,6 +4,9 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+  li {
+    padding: 1rem;
+  }
   a {
     text-decoration: none;
     color: $color-white;

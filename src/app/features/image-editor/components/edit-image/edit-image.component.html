@@ -12,16 +12,8 @@
     <button class="btn" matTooltip="Rotate right" (click)="onRotate(90)">
       <mat-icon>rotate_right</mat-icon>
     </button>
-    <!-- 
-    <mat-slider
-      min="0.5"
-      max="2"
-      step="0.5"
-      [value]="1"
-      (change)="onScaleSave()"
-      (input)="onScale($event.value)"
-      #slider
-    ></mat-slider> -->
+
+    <div class="divider-vertical"></div>
 
     <button class="btn" matTooltip="Reset" (click)="onReset()">
       <mat-icon>undo</mat-icon>
@@ -38,6 +30,8 @@
     >
       <mat-icon>cloud_download</mat-icon>
     </button>
+
+    <div class="divider"></div>
 
     <button (click)="onDelete()" class="btn" matTooltip="Delete image" matTooltipPosition="right">
       <mat-icon>delete</mat-icon>
