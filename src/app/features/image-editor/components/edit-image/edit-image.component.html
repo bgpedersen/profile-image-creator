@@ -35,21 +35,13 @@
       [disabled]="loading"
       [ngClass]="{ disabled: loading }"
       matTooltip="Generate download links"
-      matTooltipPosition="right"
     >
       <mat-icon>cloud_download</mat-icon>
     </button>
 
     <div class="divider-vertical"></div>
 
-    <button
-      (click)="onDelete()"
-      mat-icon-button
-      color="warn"
-      aria-label="Delete image"
-      matTooltip="Delete image"
-      matTooltipPosition="right"
-    >
+    <button (click)="onDelete()" mat-icon-button color="warn" aria-label="Delete image" matTooltip="Delete image">
       <mat-icon>delete</mat-icon>
     </button>
   </div>
