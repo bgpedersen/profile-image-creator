@@ -7,8 +7,12 @@ import {
   ViewChild
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators';
+import {
+  SharedDialogDefaultComponent
+} from 'src/app/shared/components/shared-dialog-default/shared-dialog-default.component';
 
 import { DownloadUrl } from '../../models/DownloadUrls.model';
 import { ImageEditorService } from '../../services/image-editor.service';
@@ -33,7 +37,8 @@ export class EditImageComponent implements AfterViewInit {
 
   constructor(
     public imageEditorService: ImageEditorService,
-    private matBottomSheet: MatBottomSheet
+    private matBottomSheet: MatBottomSheet,
+    public matDialog: MatDialog
   ) {}
 
   onRotate(degrees: number) {
@@ -45,26 +50,26 @@ export class EditImageComponent implements AfterViewInit {
   }
 
   async onReset() {
-    this.imageElm = await this.imageEditorService.createImageFromImageDataUrl(
-      this.imageDataURL
-    );
-    this.imageEditorService.canvasDraw(
-      this.imageElm,
-      this.canvasElm.nativeElement
-    );
+    this.imageElm = await this.imageEditorService.createImageFromImageDataUrl(this.imageDataURL);
+    this.imageEditorService.canvasDraw(this.imageElm, this.canvasElm.nativeElement);
   }
 
   onDelete() {
-    this.imageEditorService.resetDataUrl();
+    const dialogRef = this.matDialog.open(SharedDialogDefaultComponent, {
+      width: '250px',
+      data: { title: 'Delete', content: 'Are you sure?', cancel: 'cancel', ok: 'yes' }
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe(result => (result ? this.imageEditorService.resetDataUrl() : null));
   }
 
   openBottomSheet(downloadUrls: DownloadUrl[]) {
-    const bottomSheetRef = this.matBottomSheet.open(
-      BottomSheetDownloadurlsComponent,
-      {
-        data: downloadUrls
-      }
-    );
+    const bottomSheetRef = this.matBottomSheet.open(BottomSheetDownloadurlsComponent, {
+      data: downloadUrls
+    });
 
     bottomSheetRef
       .afterDismissed()
@@ -76,30 +81,24 @@ export class EditImageComponent implements AfterViewInit {
 
   async onDownload() {
     this.loading = true;
-    const blob = await this.imageEditorService.canvasToBlob(
-      this.canvasElm.nativeElement
-    );
+    const blob = await this.imageEditorService.canvasToBlob(this.canvasElm.nativeElement);
 
     try {
       const id = await this.imageEditorService.upload(blob);
-      const downloadUrls = await this.imageEditorService.retryRetrieveDownloadUrls(
-        id
-      );
+      const downloadUrls = await this.imageEditorService.retryRetrieveDownloadUrls(id);
       this.openBottomSheet(downloadUrls);
     } catch (error) {
-      console.error(error);
+      this.matDialog.open(SharedDialogDefaultComponent, {
+        width: '250px',
+        data: { title: 'Error', content: JSON.stringify(error), cancel: null, ok: 'ok' }
+      });
     }
 
     this.loading = false;
   }
 
   async ngAfterViewInit() {
-    this.imageElm = await this.imageEditorService.createImageFromImageDataUrl(
-      this.imageDataURL
-    );
-    this.ctx = this.imageEditorService.canvasDraw(
-      this.imageElm,
-      this.canvasElm.nativeElement
-    );
+    this.imageElm = await this.imageEditorService.createImageFromImageDataUrl(this.imageDataURL);
+    this.ctx = this.imageEditorService.canvasDraw(this.imageElm, this.canvasElm.nativeElement);
   }
 }
