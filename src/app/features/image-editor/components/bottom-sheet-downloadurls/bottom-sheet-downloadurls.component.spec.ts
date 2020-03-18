@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 
 import { BottomSheetDownloadurlsComponent } from './bottom-sheet-downloadurls.component';
 
@@ -8,9 +9,9 @@ describe('BottomSheetDownloadurlsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BottomSheetDownloadurlsComponent ]
-    })
-    .compileComponents();
+      declarations: [BottomSheetDownloadurlsComponent],
+      providers: [{ provide: MAT_BOTTOM_SHEET_DATA, useValue: {} }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

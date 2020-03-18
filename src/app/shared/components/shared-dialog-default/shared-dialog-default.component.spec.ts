@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { SharedDialogDefaultComponent } from './shared-dialog-default.component';
 
@@ -8,9 +9,9 @@ describe('SharedDialogDefaultComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SharedDialogDefaultComponent ]
-    })
-    .compileComponents();
+      declarations: [SharedDialogDefaultComponent],
+      providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
