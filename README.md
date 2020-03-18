@@ -21,7 +21,6 @@ Furthermore, this project's purpose is also to add to my skills in Angular. TODO
 - [x] Make firebase function scheduled cronjob to cleanup thumbnail folder everyday (failed - must be on billing account)
 - [x] Add angular material dialog for error messages and delete promt
 - [ ] Add Testing, unit test and possibly e2e test
-- [ ] Add NgRX state management
 - [ ] Setup CI/CD with GitHub Actions and workflow, so when to push/merge to GitHub Master branch -> automatically test and deploy to firebase. Setup prettier check.
 
 ## Tools
