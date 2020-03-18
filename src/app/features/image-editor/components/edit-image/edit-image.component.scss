@@ -3,11 +3,11 @@
 .container {
   height: 100%;
   display: grid;
-  grid-template-columns: 50px 1fr;
+  grid-template-columns: 1fr;
   grid-template-rows: 50px 1fr;
   grid-template-areas:
-    'side-menu top-menu'
-    'side-menu edit';
+    'top-menu'
+    'edit';
 }
 
 .top-menu {
@@ -16,16 +16,6 @@
   justify-content: center;
   align-items: center;
   background-color: mat-color($primary, 'lighter');
-}
-
-.side-menu {
-  grid-area: side-menu;
-  padding-top: 0.5rem;
-  background-color: mat-color($primary, 'lighter');
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
 }
 
 .edit {
@@ -58,17 +48,9 @@ mat-progress-bar {
   right: 0;
 }
 
-.divider {
-  width: 100%;
-  margin: 1rem 0;
-  border-top-color: mat-color($primary);
-  border-top-width: 1px;
-  border-top-style: solid;
-}
-
 .divider-vertical {
   height: 100%;
-  margin: 0 1rem;
+  margin: 0 0.5rem;
   border-right-color: mat-color($primary);
   border-right-width: 1px;
   border-right-style: solid;

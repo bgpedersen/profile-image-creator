@@ -24,8 +24,9 @@
     <button mat-icon-button color="accent" aria-label="Reset" matTooltip="Reset" (click)="onReset()">
       <mat-icon>undo</mat-icon>
     </button>
-  </div>
-  <div class="side-menu">
+
+    <div class="divider-vertical"></div>
+
     <button
       mat-icon-button
       color="accent"
@@ -39,12 +40,12 @@
       <mat-icon>cloud_download</mat-icon>
     </button>
 
-    <div class="divider"></div>
+    <div class="divider-vertical"></div>
 
     <button
       (click)="onDelete()"
       mat-icon-button
-      color="accent"
+      color="warn"
       aria-label="Delete image"
       matTooltip="Delete image"
       matTooltipPosition="right"
