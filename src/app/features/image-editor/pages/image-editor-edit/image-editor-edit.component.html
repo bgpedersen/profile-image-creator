@@ -2,13 +2,9 @@
   <app-shared-header></app-shared-header>
 
   <section class="edit">
-    <app-edit-image
-      *ngIf="
-        imageEditorService.imageHandler.imageDataURL$ | async as imageDataURL;
-        else uploadImg
-      "
-      [imageDataURL]="imageDataURL"
-    ></app-edit-image>
+    <ng-container *ngIf="imageDataURL$ | async as imageDataURL; else uploadImg">
+      <app-edit-image [imageDataURL]="imageDataURL"></app-edit-image>
+    </ng-container>
 
     <ng-template #uploadImg>
       <app-file-input></app-file-input>

@@ -11,4 +11,8 @@ export class ImageEditorEditComponent implements OnInit {
   constructor(public imageEditorService: ImageEditorService) {}
 
   ngOnInit() {}
+
+  get imageDataURL$() {
+    return this.imageEditorService.imageHandler.imageDataURL$;
+  }
 }

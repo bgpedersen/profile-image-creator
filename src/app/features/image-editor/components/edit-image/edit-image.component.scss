@@ -15,23 +15,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  .btn {
-    color: mat-color($accent);
-  }
+  background-color: mat-color($primary, 'lighter');
 }
 
 .side-menu {
   grid-area: side-menu;
   padding-top: 0.5rem;
-  background-color: mat-color($primary);
+  background-color: mat-color($primary, 'lighter');
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-
-  .btn {
-    color: $color-white;
-  }
 }
 
 .edit {
@@ -57,14 +51,6 @@
   }
 }
 
-.btn {
-  padding: 5px;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  background-color: inherit;
-}
-
 mat-progress-bar {
   position: absolute;
   top: 0;
@@ -72,22 +58,18 @@ mat-progress-bar {
   right: 0;
 }
 
-.disabled {
-  color: mat-color($mat-gray);
-}
-
 .divider {
   width: 100%;
-  margin: 2rem 0;
-  border-top-color: mat-color($mat-gray, 400);
+  margin: 1rem 0;
+  border-top-color: mat-color($primary);
   border-top-width: 1px;
   border-top-style: solid;
 }
 
 .divider-vertical {
   height: 100%;
-  margin: 0 2rem;
-  border-right-color: mat-color($mat-gray, 400);
+  margin: 0 1rem;
+  border-right-color: mat-color($primary);
   border-right-width: 1px;
   border-right-style: solid;
 }

@@ -1,27 +1,35 @@
 <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 <div class="container edit-image">
   <div class="top-menu">
-    <button class="btn" matTooltip="Crop to circle" (click)="onMakeCircle()">
+    <button
+      mat-icon-button
+      aria-label="Crop to circle"
+      matTooltip="Crop to circle"
+      (click)="onMakeCircle()"
+      color="accent"
+    >
       <mat-icon>account_circle</mat-icon>
     </button>
 
-    <button class="btn" matTooltip="Rotate left" (click)="onRotate(-90)">
+    <button mat-icon-button color="accent" aria-label="Crop to circle" matTooltip="Rotate left" (click)="onRotate(-90)">
       <mat-icon>rotate_left</mat-icon>
     </button>
 
-    <button class="btn" matTooltip="Rotate right" (click)="onRotate(90)">
+    <button mat-icon-button color="accent" aria-label="Rotate right" matTooltip="Rotate right" (click)="onRotate(90)">
       <mat-icon>rotate_right</mat-icon>
     </button>
 
     <div class="divider-vertical"></div>
 
-    <button class="btn" matTooltip="Reset" (click)="onReset()">
+    <button mat-icon-button color="accent" aria-label="Reset" matTooltip="Reset" (click)="onReset()">
       <mat-icon>undo</mat-icon>
     </button>
   </div>
   <div class="side-menu">
     <button
-      class="btn"
+      mat-icon-button
+      color="accent"
+      aria-label="Generate download links"
       (click)="onDownload()"
       [disabled]="loading"
       [ngClass]="{ disabled: loading }"
@@ -33,7 +41,14 @@
 
     <div class="divider"></div>
 
-    <button (click)="onDelete()" class="btn" matTooltip="Delete image" matTooltipPosition="right">
+    <button
+      (click)="onDelete()"
+      mat-icon-button
+      color="accent"
+      aria-label="Delete image"
+      matTooltip="Delete image"
+      matTooltipPosition="right"
+    >
       <mat-icon>delete</mat-icon>
     </button>
   </div>
