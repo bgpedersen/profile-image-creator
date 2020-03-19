@@ -1,14 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ImageEditorService } from '../../services/image-editor.service';
 import { ImageEditorEditComponent } from './image-editor-edit.component';
 
-describe("ImageEditorEditComponent", () => {
+describe('ImageEditorEditComponent', () => {
+  let imageEditorServiceStub: Partial<ImageEditorService>;
+
   let component: ImageEditorEditComponent;
   let fixture: ComponentFixture<ImageEditorEditComponent>;
 
+  const spy = jasmine.createSpyObj('imageEditorServiceStub', ['imageHandler']);
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ImageEditorEditComponent]
+      declarations: [ImageEditorEditComponent],
+      providers: [{ provide: ImageEditorService, useValue: imageEditorServiceStub }]
     }).compileComponents();
   }));
 
@@ -18,7 +24,7 @@ describe("ImageEditorEditComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
