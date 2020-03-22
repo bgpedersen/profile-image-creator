@@ -3,14 +3,25 @@ import { AngularFireStorage } from '@angular/fire/storage';
 
 import { ImageEditorService } from './image-editor.service';
 
+class AngularFireStorageMock {
+  ref = (path: string) => {
+    return {
+      put: (blob: Blob) => {
+        return new Promise(resolve => {
+          resolve({ metadata: { name: 'test.me' } });
+        });
+      }
+    };
+  };
+}
+
 fdescribe('ImageEditorService', () => {
   let service: ImageEditorService;
-  const angularFireStorageSpy = jasmine.createSpyObj('AngularFireStorage', ['ref']);
-  // spyOn(angularFireStorageSpy, 'ref').and.returnValue(2);
+  const afStorage = new AngularFireStorageMock();
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ImageEditorService, { provide: AngularFireStorage, useValue: angularFireStorageSpy }]
+      providers: [ImageEditorService, { provide: AngularFireStorage, useValue: afStorage }]
     });
 
     service = TestBed.inject(ImageEditorService);
@@ -27,14 +38,12 @@ fdescribe('ImageEditorService', () => {
     });
   });
 
-  xdescribe('upload', () => {
+  describe('upload', () => {
     it('should get id from upload', (done: DoneFn) => {
-      const blob = new Blob();
-      service.upload(blob).then(id => {
-        expect(id).toBe(typeof String);
+      service.upload({} as Blob).then(id => {
+        expect(id).toBe('test');
+        done();
       });
-
-      done();
     });
   });
 
