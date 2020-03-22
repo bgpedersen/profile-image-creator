@@ -59,13 +59,19 @@ export class ImageEditorService {
     });
   };
 
+  getRandomId() {
+    const randomId = Math.random()
+      .toString(36)
+      .substring(2);
+
+    return randomId;
+  }
+
   public upload(blob: Blob): Promise<string> {
     return new Promise((resolve, reject) => {
-      const randomId = Math.random()
-        .toString(36)
-        .substring(2);
-
       try {
+        const randomId = this.getRandomId();
+
         this.ref = this.afStorage.ref(`/images/${randomId}.png`);
         this.imageHandler.task = this.ref.put(blob);
 
