@@ -1,5 +1,9 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatDialog } from '@angular/material/dialog';
 
+import { ImageEditorService } from '../../services/image-editor.service';
 import { EditImageComponent } from './edit-image.component';
 
 describe('EditImageComponent', () => {
@@ -8,9 +12,14 @@ describe('EditImageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditImageComponent ]
-    })
-    .compileComponents();
+      declarations: [EditImageComponent],
+      providers: [
+        { provide: ImageEditorService, useValue: {} },
+        { provide: MatBottomSheet, useValue: {} },
+        { provide: MatDialog, useValue: {} }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

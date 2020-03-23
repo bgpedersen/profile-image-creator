@@ -70,6 +70,9 @@ export class ImageEditorService {
   public upload(blob: Blob): Promise<string> {
     return new Promise((resolve, reject) => {
       try {
+        if (!blob) {
+          throw new Error('no blob');
+        }
         const randomId = this.getRandomId();
 
         this.ref = this.afStorage.ref(`/images/${randomId}.png`);

@@ -4,18 +4,10 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { ImageEditorService } from './image-editor.service';
 
 class AngularFireStorageMock {
-  ref = (path: string) => {
-    return {
-      put: (blob: Blob) => {
-        return new Promise(resolve => {
-          resolve({ metadata: { name: 'test.me' } });
-        });
-      }
-    };
-  };
+  ref = () => {};
 }
 
-fdescribe('ImageEditorService', () => {
+describe('ImageEditorService', () => {
   let service: ImageEditorService;
   const afStorage = new AngularFireStorageMock();
 
@@ -32,28 +24,24 @@ fdescribe('ImageEditorService', () => {
   });
 
   describe('getRandomId', () => {
-    it('should get number', () => {
+    it('should get id string', () => {
       const id = service.getRandomId();
       expect(id).toBeInstanceOf(String);
     });
   });
 
   describe('upload', () => {
-    it('should get id from upload', (done: DoneFn) => {
-      service.upload({} as Blob).then(id => {
-        expect(id).toBe('test');
-        done();
+    it('should get id from upload on success', async () => {
+      spyOn(afStorage, 'ref').and.callFake(() => {
+        return { put: jasmine.createSpy('put').and.resolveTo({ metadata: { name: 'id' } }) };
       });
+      const id = await service.upload({} as Blob);
+      expect(id).toBeInstanceOf(String);
+      expect(afStorage.ref).toHaveBeenCalled();
     });
-  });
 
-  xdescribe('canvasToBlob', () => {
-    it('should create blob from canvas', (done: DoneFn) => {
-      const canvas = document.createElement('canvas');
-      service.canvasToBlob(canvas).then(blob => {
-        expect(blob).toBeDefined();
-        done();
-      });
+    it('should fail on empty input', async () => {
+      await expectAsync(service.upload(null)).toBeRejectedWithError();
     });
   });
 });
