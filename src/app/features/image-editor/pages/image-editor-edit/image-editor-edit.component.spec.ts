@@ -1,10 +1,12 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 import { ImageEditorService } from '../../services/image-editor.service';
 import { ImageEditorEditComponent } from './image-editor-edit.component';
 
+// Setting up service to mock
 class ImageEditorServiceMock {
   imageHandler = {
     imageDataURL$: new BehaviorSubject(null)
@@ -15,12 +17,12 @@ fdescribe('ImageEditorEditComponent', () => {
   let component: ImageEditorEditComponent;
   let fixture: ComponentFixture<ImageEditorEditComponent>;
 
-  const imageEditorServiceMock = new ImageEditorServiceMock();
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ImageEditorEditComponent],
-      providers: [{ provide: ImageEditorService, useValue: imageEditorServiceMock }],
+      // Mock ImageEditorService here
+      providers: [{ provide: ImageEditorService, useValue: new ImageEditorServiceMock() }],
+      // Using NO_ERRORS_SCHEMA to avoid having to include all custom elements
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
@@ -28,17 +30,53 @@ fdescribe('ImageEditorEditComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ImageEditorEditComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Moved detectChanges to blocks for more control
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display app-file-input on imageDataURL not exists', () => {});
+  // Wrab block in fakeAsync, to run stream subscription synchronous
+  it('should display app-file-input on imageDataURL not exists', fakeAsync(() => {
+    // TestBed.inject will inject the instantialized service from TestBed.configureTestingModule, meaning our mock service
+    const imageEditorServiceMock = TestBed.inject(ImageEditorService);
+    // init imageDataURL$ with null
+    imageEditorServiceMock.imageHandler.imageDataURL$ = new BehaviorSubject(null);
+    // define component data property
+    let cdata;
+    const hostEl: HTMLElement = fixture.nativeElement;
 
-  it('should render app-edit-image component on imageDataURL exists', () => {
-    component.imageEditorService.imageHandler.imageDataURL$.next('some img data');
-    pending();
-  });
+    // subscribe to stream, close after first data receieved
+    component.imageDataURL$.pipe(first()).subscribe(data => (cdata = data));
+    // Update component view
+    fixture.detectChanges();
+
+    // Grab the elements by tag
+    const appEditImg = hostEl.querySelector('app-edit-image'); // I don't exist
+    const appFileInput = hostEl.querySelector('app-file-input');
+
+    // Check that ngIf renders correct elements, and component data should be null
+    expect(appFileInput).toBeTruthy();
+    expect(appEditImg).toBeNull();
+    expect(cdata).toBeNull();
+  }));
+
+  it('should render app-edit-image component on imageDataURL exists', fakeAsync(() => {
+    const imageEditorServiceMock = TestBed.inject(ImageEditorService);
+    imageEditorServiceMock.imageHandler.imageDataURL$ = new BehaviorSubject(null);
+    imageEditorServiceMock.imageHandler.imageDataURL$.next('some img data');
+    let cdata;
+    const hostEl: HTMLElement = fixture.nativeElement;
+
+    component.imageDataURL$.pipe(first()).subscribe(data => (cdata = data));
+    fixture.detectChanges();
+
+    const appEditImg = hostEl.querySelector('app-edit-image');
+    const appFileInput = hostEl.querySelector('app-file-input'); // I don't exist
+
+    expect(appFileInput).toBeNull();
+    expect(appEditImg).toBeTruthy();
+    expect(cdata).toBe('some img data');
+  }));
 });
