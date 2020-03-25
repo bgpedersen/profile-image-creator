@@ -7,16 +7,15 @@ import { ImageEditorEditComponent } from './image-editor-edit.component';
 
 class ImageEditorServiceMock {
   imageHandler = {
-    imageDataURL$: of(['1'])
+    imageDataURL$: of([''])
   };
 }
 
-fdescribe('ImageEditorEditComponent', () => {
+describe('ImageEditorEditComponent', () => {
   let component: ImageEditorEditComponent;
   let fixture: ComponentFixture<ImageEditorEditComponent>;
 
   const imageEditorServiceMock = new ImageEditorServiceMock();
-  // spyOnProperty(imageEditorServiceMock, 'imageHandler').and.returnValue(of(['1', '2', '3']));
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -29,7 +28,6 @@ fdescribe('ImageEditorEditComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ImageEditorEditComponent);
     component = fixture.componentInstance;
-
     fixture.detectChanges();
   });
 
