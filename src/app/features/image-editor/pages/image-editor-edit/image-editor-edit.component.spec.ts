@@ -1,17 +1,17 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { ImageEditorService } from '../../services/image-editor.service';
 import { ImageEditorEditComponent } from './image-editor-edit.component';
 
 class ImageEditorServiceMock {
   imageHandler = {
-    imageDataURL$: of([''])
+    imageDataURL$: new BehaviorSubject(null)
   };
 }
 
-describe('ImageEditorEditComponent', () => {
+fdescribe('ImageEditorEditComponent', () => {
   let component: ImageEditorEditComponent;
   let fixture: ComponentFixture<ImageEditorEditComponent>;
 
@@ -33,5 +33,12 @@ describe('ImageEditorEditComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should display app-file-input on imageDataURL not exists', () => {});
+
+  it('should render app-edit-image component on imageDataURL exists', () => {
+    component.imageEditorService.imageHandler.imageDataURL$.next('some img data');
+    pending();
   });
 });

@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -10,7 +11,10 @@ describe('SharedDialogDefaultComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SharedDialogDefaultComponent],
-      providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }]
+      providers: [
+        { provide: MAT_DIALOG_DATA, useValue: { title: 'title', content: 'content', cancel: 'cancel', ok: 'ok' } }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
