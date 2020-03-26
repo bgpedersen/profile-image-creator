@@ -13,7 +13,7 @@ class ImageEditorServiceMock {
   };
 }
 
-fdescribe('ImageEditorEditComponent', () => {
+describe('ImageEditorEditComponent', () => {
   let component: ImageEditorEditComponent;
   let fixture: ComponentFixture<ImageEditorEditComponent>;
 
@@ -60,23 +60,5 @@ fdescribe('ImageEditorEditComponent', () => {
     expect(appFileInput).toBeTruthy();
     expect(appEditImg).toBeNull();
     expect(cdata).toBeNull();
-  }));
-
-  it('should render app-edit-image component on imageDataURL exists', fakeAsync(() => {
-    const imageEditorServiceMock = TestBed.inject(ImageEditorService);
-    imageEditorServiceMock.imageHandler.imageDataURL$ = new BehaviorSubject(null);
-    imageEditorServiceMock.imageHandler.imageDataURL$.next('some img data');
-    let cdata;
-    const hostEl: HTMLElement = fixture.nativeElement;
-
-    component.imageDataURL$.pipe(first()).subscribe(data => (cdata = data));
-    fixture.detectChanges();
-
-    const appEditImg = hostEl.querySelector('app-edit-image');
-    const appFileInput = hostEl.querySelector('app-file-input'); // I don't exist
-
-    expect(appFileInput).toBeNull();
-    expect(appEditImg).toBeTruthy();
-    expect(cdata).toBe('some img data');
   }));
 });

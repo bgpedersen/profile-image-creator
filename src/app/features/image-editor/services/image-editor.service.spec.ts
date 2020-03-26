@@ -9,14 +9,15 @@ class AngularFireStorageMock {
 
 describe('ImageEditorService', () => {
   let service: ImageEditorService;
-  const afStorage = new AngularFireStorageMock();
+  let afStorage: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ImageEditorService, { provide: AngularFireStorage, useValue: afStorage }]
+      providers: [ImageEditorService, { provide: AngularFireStorage, useValue: new AngularFireStorageMock() }]
     });
 
     service = TestBed.inject(ImageEditorService);
+    afStorage = TestBed.inject(AngularFireStorage);
   });
 
   it('should be created', () => {
@@ -32,12 +33,11 @@ describe('ImageEditorService', () => {
 
   describe('upload', () => {
     it('should get id from upload on success', async () => {
-      spyOn(afStorage, 'ref').and.callFake(() => {
-        return { put: jasmine.createSpy('put').and.resolveTo({ metadata: { name: 'id' } }) };
+      const refSpy = spyOn(afStorage, 'ref').and.returnValue({
+        put: () => new Promise(resolve => resolve({ metadata: { name: 'id' } }))
       });
-      const id = await service.upload({} as Blob);
-      expect(id).toBeInstanceOf(String);
-      expect(afStorage.ref).toHaveBeenCalled();
+      await expectAsync(service.upload({} as Blob)).toBeResolvedTo('id');
+      expect(refSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should fail on empty input', async () => {
