@@ -83,16 +83,16 @@ export class EditImageComponent implements AfterViewInit {
     this.loading = true;
     const blob = await this.imageEditorService.canvasToBlob(this.canvasElm.nativeElement);
 
-    // try {
-    const id = await this.imageEditorService.upload(blob);
-    const downloadUrls = await this.imageEditorService.retryRetrieveDownloadUrls(id);
-    this.openBottomSheet(downloadUrls);
-    // } catch (error) {
-    //   this.matDialog.open(SharedDialogDefaultComponent, {
-    //     width: '250px',
-    //     data: { title: 'Error', content: JSON.stringify(error), cancel: null, ok: 'ok' }
-    //   });
-    // }
+    try {
+      const id = await this.imageEditorService.upload(blob);
+      const downloadUrls = await this.imageEditorService.retryRetrieveDownloadUrls(id);
+      this.openBottomSheet(downloadUrls);
+    } catch (error) {
+      this.matDialog.open(SharedDialogDefaultComponent, {
+        width: '250px',
+        data: { title: 'Error', content: JSON.stringify(error), cancel: null, ok: 'ok' }
+      });
+    }
 
     this.loading = false;
   }
