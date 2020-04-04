@@ -1,6 +1,6 @@
 import { async, TestBed } from '@angular/core/testing';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { ImageEditorService } from './image-editor.service';
 
@@ -58,5 +58,34 @@ describe('ImageEditorService', () => {
       const res = await service.retrieveDownloadUrls('url');
       expect(res).toEqual(downloadUrls);
     });
+  });
+
+  fdescribe('observable testing', () => {
+    const singleObs = new Observable(sub => {
+      sub.next('1');
+      sub.next('2');
+      sub.complete();
+    });
+
+    const multipleObs = new Observable(sub => {
+      sub.next('1');
+      setTimeout(() => {
+        sub.next('2');
+      }, 2000);
+
+      setTimeout(() => {
+        sub.complete();
+      }, 3000);
+    });
+
+    it('should be able to test observable', () => {
+      const sub = singleObs.subscribe(res => {
+        console.log(res);
+      });
+
+      sub.unsubscribe();
+    });
+    xit('should recieve single observable', () => {});
+    xit('should recieve multiple observable', () => {});
   });
 });

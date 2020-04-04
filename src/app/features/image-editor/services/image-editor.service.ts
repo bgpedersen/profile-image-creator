@@ -34,7 +34,7 @@ export class ImageEditorService {
   }
 
   public retryRetrieveDownloadUrls(id) {
-    return this.retry<DownloadUrl[]>(() => this.retrieveDownloadUrls(id), 5, 2000);
+    return this.retry<DownloadUrl[]>(() => this.retrieveDownloadUrls(id), 5, 3000);
   }
 
   public retry = <T>(fn, times, delay): Promise<T> => {
