@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ImageEditorService } from '../../services/image-editor.service';
 import { EditImageComponent } from './edit-image.component';
 
-fdescribe('EditImageComponent', () => {
+describe('EditImageComponent', () => {
   let component: EditImageComponent;
   let fixture: ComponentFixture<EditImageComponent>;
   // define service, so it can be referenced from test blocks and to create spyObj on
