@@ -1,14 +1,16 @@
 import { async, TestBed } from '@angular/core/testing';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { Observable, of } from 'rxjs';
+import { from, of } from 'rxjs';
+import { throttleTime } from 'rxjs/operators';
+import { TestScheduler } from 'rxjs/testing';
 
 import { ImageEditorService } from './image-editor.service';
 
 class AngularFireStorageMock {
   ref(path: string) {
     return {
-      put: () => new Promise(res => res({ metadata: { name: 'id' } })),
-      getDownloadURL: () => of(path)
+      put: () => new Promise((res) => res({ metadata: { name: 'id' } })),
+      getDownloadURL: () => of(path),
     };
   }
 }
@@ -19,7 +21,7 @@ describe('ImageEditorService', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      providers: [ImageEditorService, { provide: AngularFireStorage, useValue: new AngularFireStorageMock() }]
+      providers: [ImageEditorService, { provide: AngularFireStorage, useValue: new AngularFireStorageMock() }],
     });
 
     service = TestBed.inject(ImageEditorService);
@@ -52,7 +54,7 @@ describe('ImageEditorService', () => {
       const downloadUrls = [
         { title: '200x200', url: '/images/thumbs/url_200x200.png' },
         { title: '400x400', url: '/images/thumbs/url_400x400.png' },
-        { title: '600x600', url: '/images/thumbs/url_600x600.png' }
+        { title: '600x600', url: '/images/thumbs/url_600x600.png' },
       ];
 
       const res = await service.retrieveDownloadUrls('url');
@@ -60,32 +62,41 @@ describe('ImageEditorService', () => {
     });
   });
 
-  fdescribe('observable testing', () => {
-    const singleObs = new Observable(sub => {
-      sub.next('1');
-      sub.next('2');
-      sub.complete();
-    });
+  describe('observable testing', () => {
+    const values = [1, 2, 3];
 
-    const multipleObs = new Observable(sub => {
-      sub.next('1');
-      setTimeout(() => {
-        sub.next('2');
-      }, 2000);
+    const value$ = of(values);
+    const values$ = from(values);
 
-      setTimeout(() => {
-        sub.complete();
-      }, 3000);
-    });
-
-    it('should be able to test observable', () => {
-      const sub = singleObs.subscribe(res => {
-        console.log(res);
+    it('should work with done syntax', (done: DoneFn) => {
+      value$.subscribe((value) => {
+        expect(value).toBe(values);
+        done();
       });
 
-      sub.unsubscribe();
+      let index = 0;
+      values$.subscribe((val) => {
+        expect(val).toEqual(values[index]);
+        index++;
+        done();
+      });
     });
-    xit('should recieve single observable', () => {});
-    xit('should recieve multiple observable', () => {});
+
+    let testScheduler: TestScheduler;
+    beforeEach(() => {
+      testScheduler = new TestScheduler((actual, expected) => {});
+    });
+
+    fit('should test observables over time with marble', () => {
+      testScheduler.run((helpers) => {
+        const { cold, expectObservable, expectSubscriptions } = helpers;
+        const values$ = cold('1-2-3|');
+        const subs = '^----';
+        const expected = '1-2-3|';
+
+        expectObservable(values$.pipe(throttleTime(3, testScheduler))).toBe(expected);
+        expectSubscriptions(values$.subscriptions).toBe(subs);
+      });
+    });
   });
 });
