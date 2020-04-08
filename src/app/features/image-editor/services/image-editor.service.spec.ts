@@ -1,8 +1,6 @@
 import { async, TestBed } from '@angular/core/testing';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { from, of } from 'rxjs';
-import { throttleTime } from 'rxjs/operators';
-import { TestScheduler } from 'rxjs/testing';
+import { of } from 'rxjs';
 
 import { ImageEditorService } from './image-editor.service';
 
@@ -59,44 +57,6 @@ describe('ImageEditorService', () => {
 
       const res = await service.retrieveDownloadUrls('url');
       expect(res).toEqual(downloadUrls);
-    });
-  });
-
-  describe('observable testing', () => {
-    const values = [1, 2, 3];
-
-    const value$ = of(values);
-    const values$ = from(values);
-
-    it('should work with done syntax', (done: DoneFn) => {
-      value$.subscribe((value) => {
-        expect(value).toBe(values);
-        done();
-      });
-
-      let index = 0;
-      values$.subscribe((val) => {
-        expect(val).toEqual(values[index]);
-        index++;
-        done();
-      });
-    });
-
-    let testScheduler: TestScheduler;
-    beforeEach(() => {
-      testScheduler = new TestScheduler((actual, expected) => {});
-    });
-
-    fit('should test observables over time with marble', () => {
-      testScheduler.run((helpers) => {
-        const { cold, expectObservable, expectSubscriptions } = helpers;
-        const values$ = cold('1-2-3|');
-        const subs = '^----';
-        const expected = '1-2-3|';
-
-        expectObservable(values$.pipe(throttleTime(3, testScheduler))).toBe(expected);
-        expectSubscriptions(values$.subscriptions).toBe(subs);
-      });
     });
   });
 });
