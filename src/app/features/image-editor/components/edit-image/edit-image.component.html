@@ -11,17 +11,35 @@
       <mat-icon>account_circle</mat-icon>
     </button>
 
-    <button mat-icon-button color="accent" aria-label="Crop to circle" matTooltip="Rotate left" (click)="onRotate(-90)">
+    <button
+      mat-icon-button
+      color="accent"
+      aria-label="Crop to circle"
+      matTooltip="Rotate left"
+      (click)="onRotate(-90)"
+    >
       <mat-icon>rotate_left</mat-icon>
     </button>
 
-    <button mat-icon-button color="accent" aria-label="Rotate right" matTooltip="Rotate right" (click)="onRotate(90)">
+    <button
+      mat-icon-button
+      color="accent"
+      aria-label="Rotate right"
+      matTooltip="Rotate right"
+      (click)="onRotate(90)"
+    >
       <mat-icon>rotate_right</mat-icon>
     </button>
 
     <div class="divider-vertical"></div>
 
-    <button mat-icon-button color="accent" aria-label="Reset" matTooltip="Reset" (click)="onReset()">
+    <button
+      mat-icon-button
+      color="accent"
+      aria-label="Reset"
+      matTooltip="Reset"
+      (click)="onReset()"
+    >
       <mat-icon>undo</mat-icon>
     </button>
 
@@ -41,7 +59,13 @@
 
     <div class="divider-vertical"></div>
 
-    <button (click)="onDelete()" mat-icon-button color="warn" aria-label="Delete image" matTooltip="Delete image">
+    <button
+      (click)="onDelete()"
+      mat-icon-button
+      color="warn"
+      aria-label="Delete image"
+      matTooltip="Delete image"
+    >
       <mat-icon>delete</mat-icon>
     </button>
   </div>

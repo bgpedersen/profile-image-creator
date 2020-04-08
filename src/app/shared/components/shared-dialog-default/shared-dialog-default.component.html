@@ -3,6 +3,10 @@
   {{ data.content }}
 </div>
 <div mat-dialog-actions>
-  <button *ngIf="data.cancel" mat-button [mat-dialog-close]="false">{{ data.cancel }}</button>
-  <button mat-button cdkFocusInitial [mat-dialog-close]="true">{{ data.ok }}</button>
+  <button *ngIf="data.cancel" mat-button [mat-dialog-close]="false">
+    {{ data.cancel }}
+  </button>
+  <button mat-button cdkFocusInitial [mat-dialog-close]="true">
+    {{ data.ok }}
+  </button>
 </div>

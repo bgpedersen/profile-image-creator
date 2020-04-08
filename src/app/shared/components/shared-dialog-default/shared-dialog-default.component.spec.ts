@@ -12,9 +12,17 @@ describe('SharedDialogDefaultComponent', () => {
     TestBed.configureTestingModule({
       declarations: [SharedDialogDefaultComponent],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: { title: 'title', content: 'content', cancel: 'cancel', ok: 'ok' } }
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: {
+            title: 'title',
+            content: 'content',
+            cancel: 'cancel',
+            ok: 'ok',
+          },
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

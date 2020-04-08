@@ -12,8 +12,8 @@ export const environment = {
     storageBucket: 'profile-image-creator.appspot.com',
     messagingSenderId: '919162423289',
     appId: '1:919162423289:web:10effec148140a07441f28',
-    measurementId: 'G-36B53REMEC'
-  }
+    measurementId: 'G-36B53REMEC',
+  },
 };
 
 /*

@@ -8,9 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import {
-  SharedDialogDefaultComponent
-} from './components/shared-dialog-default/shared-dialog-default.component';
+import { SharedDialogDefaultComponent } from './components/shared-dialog-default/shared-dialog-default.component';
 import { SharedHeaderComponent } from './components/shared-header/shared-header.component';
 
 @NgModule({
@@ -23,7 +21,7 @@ import { SharedHeaderComponent } from './components/shared-header/shared-header.
     MatBottomSheetModule,
     MatDividerModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   exports: [
     SharedHeaderComponent,
@@ -35,8 +33,8 @@ import { SharedHeaderComponent } from './components/shared-header/shared-header.
     MatBottomSheetModule,
     MatDividerModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
   ],
-  entryComponents: [SharedDialogDefaultComponent]
+  entryComponents: [SharedDialogDefaultComponent],
 })
 export class SharedModule {}

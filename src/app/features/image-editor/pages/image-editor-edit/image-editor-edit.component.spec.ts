@@ -1,5 +1,10 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+} from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 import { first } from 'rxjs/operators';
 
@@ -9,7 +14,7 @@ import { ImageEditorEditComponent } from './image-editor-edit.component';
 // Setting up service to mock
 class ImageEditorServiceMock {
   imageHandler = {
-    imageDataURL$: new BehaviorSubject(null)
+    imageDataURL$: new BehaviorSubject(null),
   };
 }
 
@@ -21,9 +26,11 @@ describe('ImageEditorEditComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ImageEditorEditComponent],
       // Mock ImageEditorService here
-      providers: [{ provide: ImageEditorService, useValue: new ImageEditorServiceMock() }],
+      providers: [
+        { provide: ImageEditorService, useValue: new ImageEditorServiceMock() },
+      ],
       // Using NO_ERRORS_SCHEMA to avoid having to include all custom elements
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -42,13 +49,15 @@ describe('ImageEditorEditComponent', () => {
     // TestBed.inject will inject the instantialized service from TestBed.configureTestingModule, meaning our mock service
     const imageEditorServiceMock = TestBed.inject(ImageEditorService);
     // init imageDataURL$ with null
-    imageEditorServiceMock.imageHandler.imageDataURL$ = new BehaviorSubject(null);
+    imageEditorServiceMock.imageHandler.imageDataURL$ = new BehaviorSubject(
+      null
+    );
     // define component data property
     let cdata;
     const hostEl: HTMLElement = fixture.nativeElement;
 
     // subscribe to stream, close after first data receieved
-    component.imageDataURL$.pipe(first()).subscribe(data => (cdata = data));
+    component.imageDataURL$.pipe(first()).subscribe((data) => (cdata = data));
     // Update component view
     fixture.detectChanges();
 

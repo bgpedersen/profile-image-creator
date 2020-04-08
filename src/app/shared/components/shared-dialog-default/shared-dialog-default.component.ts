@@ -11,7 +11,7 @@ export interface DialogDefaultData {
 @Component({
   selector: 'app-shared-dialog-default',
   templateUrl: './shared-dialog-default.component.html',
-  styleUrls: ['./shared-dialog-default.component.scss']
+  styleUrls: ['./shared-dialog-default.component.scss'],
 })
 export class SharedDialogDefaultComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogDefaultData) {}

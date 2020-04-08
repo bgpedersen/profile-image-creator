@@ -11,7 +11,9 @@ describe('FileInputComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [FileInputComponent],
-      providers: [{ provide: ImageEditorService, useValue: imageEditorServiceMock }]
+      providers: [
+        { provide: ImageEditorService, useValue: imageEditorServiceMock },
+      ],
     }).compileComponents();
   }));
 

@@ -8,9 +8,8 @@ describe('SharedHeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SharedHeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [SharedHeaderComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

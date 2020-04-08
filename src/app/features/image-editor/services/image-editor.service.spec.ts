@@ -19,7 +19,10 @@ describe('ImageEditorService', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      providers: [ImageEditorService, { provide: AngularFireStorage, useValue: new AngularFireStorageMock() }],
+      providers: [
+        ImageEditorService,
+        { provide: AngularFireStorage, useValue: new AngularFireStorageMock() },
+      ],
     });
 
     service = TestBed.inject(ImageEditorService);

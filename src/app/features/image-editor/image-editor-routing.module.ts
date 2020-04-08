@@ -5,11 +5,11 @@ import { ImageEditorEditComponent } from './pages/image-editor-edit/image-editor
 
 const routes: Routes = [
   { path: 'image-edit-editor', component: ImageEditorEditComponent },
-  { path: '', redirectTo: 'image-edit-editor', pathMatch: 'full' }
+  { path: '', redirectTo: 'image-edit-editor', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class ImageEditorRoutingModule {}

@@ -5,7 +5,7 @@
 @import 'base/fonts';
 
 $custom-typography: mat-typography-config(
-  $font-family: 'Montserrat'
+  $font-family: 'Montserrat',
 );
 // Override typography for all Angular Material, including mat-base-typography and all components.
 @include angular-material-typography($custom-typography);

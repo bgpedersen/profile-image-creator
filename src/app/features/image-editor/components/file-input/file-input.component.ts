@@ -5,7 +5,7 @@ import { ImageEditorService } from '../../services/image-editor.service';
 @Component({
   selector: 'app-file-input',
   templateUrl: './file-input.component.html',
-  styleUrls: ['./file-input.component.scss']
+  styleUrls: ['./file-input.component.scss'],
 })
 export class FileInputComponent implements OnInit {
   constructor(private imageEditorService: ImageEditorService) {}

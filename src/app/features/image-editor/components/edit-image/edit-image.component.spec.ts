@@ -15,13 +15,16 @@ describe('EditImageComponent', () => {
 
   beforeEach(async(() => {
     // create spy obj on the defined service from before. Cast the type to get auto complete on the fn names
-    imageEditorServiceSpy = jasmine.createSpyObj<ImageEditorService>('ImageEditorService', [
-      'canvasToBlob',
-      'upload',
-      'retryRetrieveDownloadUrls',
-      'createImageFromImageDataUrl',
-      'canvasDraw'
-    ]);
+    imageEditorServiceSpy = jasmine.createSpyObj<ImageEditorService>(
+      'ImageEditorService',
+      [
+        'canvasToBlob',
+        'upload',
+        'retryRetrieveDownloadUrls',
+        'createImageFromImageDataUrl',
+        'canvasDraw',
+      ]
+    );
 
     TestBed.configureTestingModule({
       declarations: [EditImageComponent],
@@ -29,13 +32,16 @@ describe('EditImageComponent', () => {
         {
           provide: ImageEditorService,
           // use the spy service as value
-          useValue: imageEditorServiceSpy
+          useValue: imageEditorServiceSpy,
         },
         { provide: MatBottomSheet, useValue: {} },
-        { provide: MatDialog, useValue: jasmine.createSpyObj('MatDialog', ['open']) },
-        { provide: AngularFireStorage, useValue: {} }
+        {
+          provide: MatDialog,
+          useValue: jasmine.createSpyObj('MatDialog', ['open']),
+        },
+        { provide: AngularFireStorage, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

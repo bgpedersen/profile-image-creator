@@ -12,7 +12,7 @@ describe('BottomSheetDownloadurlsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [BottomSheetDownloadurlsComponent],
       providers: [{ provide: MAT_BOTTOM_SHEET_DATA, useValue: [] }],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
