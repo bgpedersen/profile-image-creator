@@ -11,7 +11,7 @@ Furthermore, this project's purpose is also to add to my skills in Angular.
 - [x] Use template driven approach for subscriptions
 - [x] Crop image to circle using canvas techiques
 - [x] Setup firebase storage rules / authentication to allow upload image and download resized images
-- [x] Upload image, rezise to 3 sizes, and option to download https://www.codewithchintan.com/how-to-upload-and-display-image-file-in-pwa-angular-project-using-firebase-cloud-storage-and-angularfire/amp/
+- [x] Upload image, rezise to 3 sizes, and option to download <https://www.codewithchintan.com/how-to-upload-and-display-image-file-in-pwa-angular-project-using-firebase-cloud-storage-and-angularfire/amp/>
 - [x] Make use of Angular Material for theme, colors and components
 - [x] Make loading while waiting few seconds to generate thumbnails and make retry button in toast
 - [x] Remove option to keep uploading same image, but use already uploaded
@@ -20,7 +20,7 @@ Furthermore, this project's purpose is also to add to my skills in Angular.
 - [x] Be able to scale the image (failed - whole canvas edit should have been written differently, not changing the image on the canvas, but changing the canvas and in the end drawing the image to fit the modified canvas)
 - [x] Make firebase function scheduled cronjob to cleanup thumbnail folder everyday (failed - must be on billing account)
 - [x] Add angular material dialog for error messages and delete promt
-- [ ] Add Testing, unit test and possibly e2e test
+- [x] Add Testing, unit test and possibly e2e test
 - [ ] Setup CI/CD with GitHub Actions and workflow, so when to push/merge to GitHub Master branch -> automatically test and deploy to firebase. Setup prettier check.
 
 ## Tools
@@ -31,26 +31,32 @@ Furthermore, this project's purpose is also to add to my skills in Angular.
 
 ## Commands
 
-**Run and open in browser**
+Serve code
 
-`npm run start`
+```bash
+npm run start
+```
 
-**Deploy to firebase hosting**
+Run tests
 
-`npm run deploy:hosting`
+```bash
+npm run test
+```
 
-**Deploy everything including firebase functions etc**
+Deploy code to firebase
 
-`npm run deploy:all`
+```bash
+npm run deploy:hosting
+```
 
-## Tips for coding
+Deploy code and firebase functions to firebase
 
-**Scafolding**
+```bash
+npm run deploy:all
+```
 
-Build new lazy loaded feature and add route to main module
+Run webpack analyze tool
 
-`ng g m features/heroes --route --heroes-list --module app.module`
-
-Add pages/components to the new feature module
-
-`ng g c features/heroes/heroes-list`
+```bash
+npm run analyze
+```
