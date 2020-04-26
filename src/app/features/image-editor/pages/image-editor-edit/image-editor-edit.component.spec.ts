@@ -1,13 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  async,
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 import { first } from 'rxjs/operators';
-
 import { ImageEditorService } from '../../services/image-editor.service';
 import { ImageEditorEditComponent } from './image-editor-edit.component';
 
@@ -45,7 +39,7 @@ describe('ImageEditorEditComponent', () => {
   });
 
   // Wrab block in fakeAsync, to run stream subscription synchronous
-  it('should display app-file-input on imageDataURL not exists', fakeAsync(() => {
+  it('should display app-file-input on imageDataURL not exists', () => {
     // TestBed.inject will inject the instantialized service from TestBed.configureTestingModule, meaning our mock service
     const imageEditorServiceMock = TestBed.inject(ImageEditorService);
     // init imageDataURL$ with null
@@ -69,5 +63,5 @@ describe('ImageEditorEditComponent', () => {
     expect(appFileInput).toBeTruthy();
     expect(appEditImg).toBeNull();
     expect(cdata).toBeNull();
-  }));
+  });
 });
